@@ -147,6 +147,11 @@
     return aView;
 }
 
+//移动行
+- (void)moveRowAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex NS_AVAILABLE_MAC(10_7){
+    
+}
+
 - (void)del:(id)sender{
     NSButton *b = sender;
     [Cache delStock:b.tag];

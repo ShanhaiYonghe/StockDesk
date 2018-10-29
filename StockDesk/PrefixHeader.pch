@@ -69,9 +69,13 @@
 #define sHeigth  [UIScreen mainScreen].bounds.size.height
 
 //colors
-#define ThemeRedColor [NSColor redColor]
-#define ThemeGreenColor NSColorFromHEX(0x3CB371,1)
+#define ThemeRedColor NSColorFromHEX(0xB22222,1)
+#define ThemeGreenColor NSColorFromHEX(0x2E8B57,1)
 #define ThemeGrayColor [NSColor grayColor]
 #define ThemeDarkGrayColor [NSColor darkGrayColor]
+
+#define kWindowFront @"kWindowFront" //窗口最前显示
+#define kWindowAlpha @"kWindowAlpha" //窗口透明度
+#define kAppLoadTimes @"kAppLoadTimes" //app启动次数
 
 #endif /* PrefixHeader_pch */
