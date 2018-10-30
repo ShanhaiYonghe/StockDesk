@@ -7,6 +7,7 @@
 //
 
 #import "wc.h"
+#import "Cache.h"
 
 @interface wc ()
 
@@ -25,6 +26,8 @@
         [[NSUserDefaults standardUserDefaults]setFloat:0.8 forKey:kWindowAlpha];
     }
     [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];
+    
+//    [Cache delAllStocks];
 }
 
 - (void)windowDidLoad {
@@ -46,7 +49,6 @@
 //    [self.window setFrameOrigin:CGPointMake(screen.size.width/2, screen.size.height/2)];
 //    [self.window setLevel:NSStatusWindowLevel];
 //    self.window.styleMask = NSTexturedBackgroundWindowMask;
-
 }
 
 @end

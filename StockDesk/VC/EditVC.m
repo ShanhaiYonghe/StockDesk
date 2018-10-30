@@ -26,6 +26,12 @@
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,strong) NSArray *typeArr;
 
+@property (nonatomic,strong) StockModel *dragStockModel;
+
+@property (weak) IBOutlet NSView *guzhiView;
+
+
+
 @end
 
 @implementation EditVC
@@ -35,12 +41,58 @@
     _dataSourceArray = [NSMutableArray new];
     _type = @"sh";
     [self getData];
+    
+    [_tableView registerForDraggedTypes:@[NSStringPboardType]];
+    _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
+    
+    NSArray *btnArray = _guzhiView.subviews;
+    for (NSButton *b in btnArray) {
+        if ([b.title containsString:@"上证指数"] && [[Cache getStocks] containsObject:@"sh000001"]) {//sh000001
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"深证"] && [[Cache getStocks] containsObject:@"sz399001"]) {//sz399001
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"创业"] && [[Cache getStocks] containsObject:@"sz399006"]) {//sz399006
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"沪深"] && [[Cache getStocks] containsObject:@"sz399300"]) {//sz399300
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"中小板"] && [[Cache getStocks] containsObject:@"sz399005"]) {//sz399005
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"上证50"] && [[Cache getStocks] containsObject:@"sh000016"]) {//sh000016
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"恒生指数"] && [[Cache getStocks] containsObject:@"hkHSI"]) {//hkHSI   800000
+            b.state = NSControlStateValueOn;
+            continue;
+        }
+        //    else if ([b.title containsString:@"国企指数"]) {//800100
+        //    }else if ([b.title containsString:@"恒指期货"]) {//999010
+        //    }
+        else if ([b.title containsString:@"道琼斯"] && [[Cache getStocks] containsObject:@"gb_$dji"]) {//gb_$dji
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"纳斯达克"] && [[Cache getStocks] containsObject:@"gb_ixic"]) {//gb_ixic
+            b.state = NSControlStateValueOn;
+            continue;
+        }else if ([b.title containsString:@"标普500"] && [[Cache getStocks] containsObject:@"gb_$inx"]) {//gb_$inx
+            b.state = NSControlStateValueOn;
+            continue;
+        }else{
+            b.state = NSControlStateValueOff;
+        }
+    }
+
 }
 
 - (void)getData{
     //gb_$ndx 纳斯达克100  gb_$inx标普指数 gb_$dji道琼斯 gb_ixic纳斯达克 gb_baba阿里巴巴(小写)
     //sz399001 深证成指；sh000001 上证指数 ；sz399006 创业板指 ；hkHSI 恒生指数 rt_hkHSI
-    //sz\sh\hk; sh603706 东方环宇 ; sz002371 北方华创 ; sh601606长城军工
+    //sz\sh\hk; sh603706 东方环宇 ; sz002371 北方华创 ; sh601606长城军工; hk00700 腾讯控股
+    
     if ([Cache getStocks].count) {
         @WeakSelf(self);
         [StockModel getData:^(NSArray *dataList) {
@@ -52,6 +104,9 @@
                 });
             }
         }];
+    }else{
+        [_dataSourceArray removeAllObjects];
+        [_tableView reloadData];
     }
 }
 
@@ -86,13 +141,14 @@
     NSButton *b = sender;
     if ([b.title isEqualToString:@"上证"]) {
         _type = @"sh";
-    }else if ([b.title isEqualToString:@"深证"]||[b.title isEqualToString:@"创业板"]) {
+    }else if ([b.title isEqualToString:@"深证"]) {
         _type = @"sz";
     }else if ([b.title isEqualToString:@"港股"]) {
         _type = @"hk";
     }else if ([b.title isEqualToString:@"美股"]) {
         _type = @"gb_";
     }
+    Log(@"%@",_type);
 }
 
 #pragma mark - NSTableViewDelegate
@@ -115,27 +171,31 @@
     StockModel *sm = [_dataSourceArray objectAtIndex:row];
     if ([strIdt isEqualToString:@"name"]) {
         aView.textField.stringValue = sm.name;
-        aView.textField.textColor = [NSColor darkGrayColor];
+        aView.textField.textColor = ThemeDarkGrayColor;
+    }else if([strIdt isEqualToString:@"code"]){
+        aView.textField.stringValue = sm.codeDes;
+        aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"low"]){
         aView.textField.stringValue = [NSString stringWithFormat:@"低%.2f",sm.todayLowPrice];
-        aView.textField.textColor = [NSColor grayColor];
+        aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"percent"]){
         aView.textField.stringValue = [NSString stringWithFormat:@"%.2f%%",sm.percent];
         if (sm.percent>0) {
-            aView.textField.textColor = [NSColor redColor];
+            aView.textField.textColor = ThemeRedColor;
         }else if(sm.percent==0){
-            aView.textField.textColor = [NSColor grayColor];
+            aView.textField.textColor = ThemeGrayColor;
         }else{
-            aView.textField.textColor = NSColorFromHEX(0x3CB371,1);
+            aView.textField.textColor = ThemeGreenColor;
         }
     }else if([strIdt isEqualToString:@"high"]){
         aView.textField.stringValue = [NSString stringWithFormat:@"高%.2f",sm.todayHighPrice];
-        aView.textField.textColor = [NSColor grayColor];
+        aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"current"]){
         aView.textField.stringValue = [NSString stringWithFormat:@"现%.2f",sm.nowPrice];
-        aView.textField.textColor = [NSColor grayColor];
+        aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"control"]){
         NSButton *btn = [NSButton new];
+        btn.bezelStyle = NSBezelStyleRoundRect;
         [btn setTitle:@"删除"];
         btn.tag = row;
         btn.frame = CGRectMake(0, 0, 70, 20);
@@ -147,10 +207,55 @@
     return aView;
 }
 
-//移动行
-- (void)moveRowAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex NS_AVAILABLE_MAC(10_7){
-    
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation{
+    if (dropOperation == NSTableViewDropAbove) {
+        return NSDragOperationMove;
+    }
+    return NSDragOperationNone;
 }
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard{
+    [pboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:self];//定义存在剪切板的哪里，不加这句代码貌似拖拽不起作用
+    NSArray *array = [_dataSourceArray objectsAtIndexes:rowIndexes];//拖拽的列表数组
+    _dragStockModel = array.firstObject;
+    return YES;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation{
+    NSInteger idx = [_dataSourceArray indexOfObject:_dragStockModel];//拖动的obj
+    BOOL flag = NO;
+    if (idx > row) { //下面往上面移动
+        StockModel *sm = _dataSourceArray[row];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            [_dataSourceArray removeObject:_dragStockModel];
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            flag = YES;
+        }
+    }
+    if (idx < row) {//上面往下面移动
+        StockModel *sm = _dataSourceArray[row-1];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            [_dataSourceArray removeObject:_dragStockModel];
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            flag = YES;
+        }
+    }
+    if (flag) {
+        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:_dataSourceArray.count];
+        for (StockModel *s in _dataSourceArray) {
+            [arr addObject:s.code];
+        }
+        [Cache saveStocks:arr];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+        
+        [_tableView reloadData];
+        _dragStockModel = nil;
+        [_tableView deselectAll:nil];
+    }
+    return YES;
+}
+
+#pragma mark private method
 
 - (void)del:(id)sender{
     NSButton *b = sender;
@@ -158,5 +263,46 @@
     [self getData];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
 }
+
+- (IBAction)addZhishuAction:(id)sender {
+    NSButton *b = sender;
+    NSString *code = @"";
+    if ([b.title containsString:@"上证指数"]) {//sh000001
+        code = @"sh000001";
+    }else if ([b.title containsString:@"深证"]) {//sz399001
+        code = @"sz399001";
+    }else if ([b.title containsString:@"创业"]) {//sz399006
+        code = @"sz399006";
+    }else if ([b.title containsString:@"沪深"]) {//sz399300
+        code = @"sz399300";
+    }else if ([b.title containsString:@"中小板"]) {//sz399005
+        code = @"sz399005";
+    }else if ([b.title containsString:@"上证50"]) {//sh000016
+        code = @"sh000016";
+    }else if ([b.title containsString:@"恒生指数"]) {//hkHSI   800000
+        code = @"hkHSI";
+    }
+//    else if ([b.title containsString:@"国企指数"]) {//800100
+//        code = @"hk800100";
+//    }else if ([b.title containsString:@"恒指期货"]) {//999010
+//        code = @"hk999010";
+//    }
+    else if ([b.title containsString:@"道琼斯"]) {//gb_$dji
+        code = @"gb_$dji";
+    }else if ([b.title containsString:@"纳斯达克"]) {//gb_ixic
+        code = @"gb_ixic";
+    }else if ([b.title containsString:@"标普500"]) {//gb_$inx
+        code = @"gb_$inx";
+    }
+    if (code.length && b.state == NSControlStateValueOn) {
+        [Cache saveStock:code];
+    }else{
+        [Cache delStockByCode:code];
+    }
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+    [self getData];
+}
+
+
 
 @end

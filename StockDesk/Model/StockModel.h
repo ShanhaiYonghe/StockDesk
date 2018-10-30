@@ -15,6 +15,7 @@ typedef void(^SuccessBlock)(BOOL);
 
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *code;
+@property (nonatomic,copy) NSString *codeDes;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,assign) double todayStartPrice;
 @property (nonatomic,assign) double yesEndPrice;

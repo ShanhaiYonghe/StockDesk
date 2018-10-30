@@ -26,6 +26,14 @@ static NSString *stockKey = @"stockKey";
     return NO;
 }
 
++ (BOOL)saveStocks:(NSArray *)codeArray{
+    if (!codeArray.count) {
+        return NO;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:codeArray forKey:stockKey];
+    return YES;
+}
+
 +(NSArray *)getStocks{
     NSArray *arr = [[NSUserDefaults standardUserDefaults] arrayForKey:stockKey];
     return arr;
@@ -35,6 +43,16 @@ static NSString *stockKey = @"stockKey";
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:stockKey]];
     [arr removeObjectAtIndex:idx];
     [[NSUserDefaults standardUserDefaults] setObject:arr forKey:stockKey];
+}
+
++(void)delStockByCode:(NSString*)code{
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:stockKey]];
+    [arr removeObject:code];
+    [[NSUserDefaults standardUserDefaults] setObject:arr forKey:stockKey];
+}
+
++(void)delAllStocks{
+    [[NSUserDefaults standardUserDefaults] setObject:@[ ] forKey:stockKey];
 }
 
 @end

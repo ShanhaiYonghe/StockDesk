@@ -95,15 +95,15 @@
         <!--Edit Stock-->
         <scene sceneID="hVc-4A-fsi">
             <objects>
-                <viewController title="Edit Stock" id="Xb1-YA-G79" customClass="EditVC" sceneMemberID="viewController">
+                <viewController title="Edit Stock" showSeguePresentationStyle="single" id="Xb1-YA-G79" customClass="EditVC" sceneMemberID="viewController">
                     <view key="view" focusRingType="none" id="EWG-Qs-HWr">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="700" height="370"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cDG-hY-Ern">
-                                <rect key="frame" x="20" y="228" width="118" height="22"/>
+                                <rect key="frame" x="20" y="328" width="130" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="118" id="5tq-ux-MoS"/>
+                                    <constraint firstAttribute="width" constant="130" id="5tq-ux-MoS"/>
                                     <constraint firstAttribute="height" constant="22" id="Nnn-hE-XID"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="请输入股票代码" drawsBackground="YES" id="ya3-sA-qKt">
@@ -113,7 +113,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QmZ-bT-CPI">
-                                <rect key="frame" x="140" y="222" width="72" height="32"/>
+                                <rect key="frame" x="152" y="322" width="72" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="F2t-hq-ME1"/>
                                     <constraint firstAttribute="width" constant="60" id="psn-35-PcX"/>
@@ -127,21 +127,213 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fl1-jE-4gt">
-                                <rect key="frame" x="224" y="231" width="244" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="提示信息" id="GmC-uX-e0R">
+                                <rect key="frame" x="236" y="331" width="452" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="GmC-uX-e0R">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" red="0.90811204663212441" green="0.43660329659951858" blue="0.26319105918975377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="G6t-El-gee">
+                                <rect key="frame" x="20" y="290" width="660" height="30"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUw-Du-gNV">
+                                        <rect key="frame" x="0.0" y="7" width="50" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="上证" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fGI-qL-ToF">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="lN8-Ap-NvX"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jes-ZC-ped">
+                                        <rect key="frame" x="56" y="7" width="50" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="深证" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Xqt-PI-qXN">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="maM-x7-BTF"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="noa-Fs-1rm">
+                                        <rect key="frame" x="112" y="7" width="50" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="港股" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3IC-7B-Gqv">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="pha-hU-MCY"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSa-0O-3zy">
+                                        <rect key="frame" x="168" y="7" width="50" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="美股" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="isp-Gm-v1h">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="K1j-61-gC3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="pCX-Wj-JdC"/>
+                                </constraints>
+                            </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="6fP-vU-Sw2" userLabel="guzhi">
+                                <rect key="frame" x="20" y="240" width="660" height="50"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Nu-41-jAg">
+                                        <rect key="frame" x="0.0" y="26" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="上证指数" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Mud-pk-khI">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="dl4-bQ-GRW"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIB-vN-JYY">
+                                        <rect key="frame" x="75" y="26" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="深证成指" bezelStyle="regularSquare" imagePosition="left" inset="2" id="a84-TC-l8F">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="BRY-fG-aTP"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x6d-GQ-Pof">
+                                        <rect key="frame" x="150" y="26" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="创业板指" bezelStyle="regularSquare" imagePosition="left" inset="2" id="SMH-ka-yxc">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="hD6-hm-cw5"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvB-hz-hwz">
+                                        <rect key="frame" x="225" y="26" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="沪深300" bezelStyle="regularSquare" imagePosition="left" inset="2" id="AYm-hH-65P">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="hr4-ih-jGa"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFx-a6-hIP">
+                                        <rect key="frame" x="300" y="25" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="中小板指" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d4U-Eu-X8T">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="r5r-ds-rlX"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDH-ig-SmO">
+                                        <rect key="frame" x="375" y="26" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="上证50" bezelStyle="regularSquare" imagePosition="left" inset="2" id="UTl-aO-PDt">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="YTr-IZ-5Sc"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1T-Z0-yWk">
+                                        <rect key="frame" x="0.0" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="恒生指数" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ydI-n8-qJl">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="iQd-YG-p1J"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ysQ-YK-TTN">
+                                        <rect key="frame" x="75" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="国企指数" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1JH-Ks-gAh">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="RVW-6g-2cg"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EqP-YM-CbF">
+                                        <rect key="frame" x="150" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="恒指期货" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EU7-aE-NIC">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="SNJ-yK-KY2"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iia-2q-Ca1">
+                                        <rect key="frame" x="75" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="道琼斯" bezelStyle="regularSquare" imagePosition="left" inset="2" id="nUJ-aM-jOB">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="bSj-eA-wlg"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fm-48-2Ug">
+                                        <rect key="frame" x="150" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="纳斯达克" bezelStyle="regularSquare" imagePosition="left" inset="2" id="FX6-FV-9MT">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="eQH-nD-rCc"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnA-cP-qRr">
+                                        <rect key="frame" x="225" y="5" width="75" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="标普500" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8je-fL-ISO">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addZhishuAction:" target="Xb1-YA-G79" id="CUg-LI-nOm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="M3s-xm-Zwi"/>
+                                </constraints>
+                            </customView>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0Z-Fw-3QM" userLabel="stockTable">
-                                <rect key="frame" x="20" y="20" width="440" height="170"/>
-                                <clipView key="contentView" focusRingType="none" id="3zv-dk-q8Y">
-                                    <rect key="frame" x="1" y="0.0" width="438" height="169"/>
+                                <rect key="frame" x="20" y="20" width="660" height="190"/>
+                                <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="3zv-dk-q8Y">
+                                    <rect key="frame" x="1" y="1" width="658" height="188"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="ifV-VB-GZx" viewBased="YES" id="ftB-ta-zZn">
-                                            <rect key="frame" x="0.0" y="0.0" width="468" height="146"/>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="ftB-ta-zZn">
+                                            <rect key="frame" x="0.0" y="0.0" width="658" height="188"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -167,7 +359,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FoR-Xi-T8C">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="rRH-c7-dpU">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="rRH-c7-dpU">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -180,7 +372,40 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="low" width="70" minWidth="40" maxWidth="100" id="1Cz-K5-t3e">
+                                                <tableColumn identifier="code" width="80" minWidth="40" maxWidth="100" id="kXn-Au-egc" userLabel="code">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="q0X-Nl-7Sz">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView id="loG-ay-RNf">
+                                                            <rect key="frame" x="104" y="1" width="80" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IUc-F5-S86">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="5Rq-vx-CVJ">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="IUc-F5-S86" id="2ZM-gX-jVY"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                                <tableColumn identifier="low" width="80" minWidth="40" maxWidth="200" id="1Cz-K5-t3e">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -194,13 +419,13 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="Von-pf-oND">
-                                                            <rect key="frame" x="104" y="1" width="70" height="17"/>
+                                                            <rect key="frame" x="187" y="1" width="80" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqd-cT-vpM">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="3pJ-ok-JZu">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="3pJ-ok-JZu">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -213,7 +438,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="high" width="70" minWidth="40" maxWidth="100" id="rE9-fV-SDO">
+                                                <tableColumn identifier="high" width="80" minWidth="40" maxWidth="200" id="rE9-fV-SDO">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -227,13 +452,13 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="XVh-GM-Wf3">
-                                                            <rect key="frame" x="177" y="1" width="70" height="17"/>
+                                                            <rect key="frame" x="270" y="1" width="80" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZw-Ou-ia6">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="e4F-oF-cb6">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="e4F-oF-cb6">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -246,7 +471,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="current" width="70" minWidth="40" maxWidth="100" id="eTs-JZ-JuL">
+                                                <tableColumn identifier="current" width="80" minWidth="40" maxWidth="200" id="eTs-JZ-JuL">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -260,13 +485,13 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="7hR-Xj-Gav">
-                                                            <rect key="frame" x="250" y="1" width="70" height="17"/>
+                                                            <rect key="frame" x="353" y="1" width="80" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnW-cy-LlT">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="PvU-uE-fw2">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="PvU-uE-fw2">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -279,7 +504,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="percent" width="70" minWidth="40" maxWidth="70" id="CNA-nR-18N">
+                                                <tableColumn identifier="percent" width="70" minWidth="40" maxWidth="100" id="CNA-nR-18N">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -293,13 +518,13 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="63f-HB-pJb">
-                                                            <rect key="frame" x="323" y="1" width="70" height="17"/>
+                                                            <rect key="frame" x="436" y="1" width="70" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPi-kw-RPt">
                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="N7D-6q-Pxp">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="N7D-6q-Pxp">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -332,97 +557,53 @@
                                             </connections>
                                         </tableView>
                                     </subviews>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="VPM-31-YvE">
-                                    <rect key="frame" x="1" y="153" width="438" height="16"/>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="VPM-31-YvE">
+                                    <rect key="frame" x="1" y="153" width="558" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="S8j-BK-TgL">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <tableHeaderView key="headerView" id="ifV-VB-GZx">
-                                    <rect key="frame" x="0.0" y="0.0" width="468" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableHeaderView>
                             </scrollView>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6t-El-gee">
-                                <rect key="frame" x="20" y="192" width="440" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUw-Du-gNV">
-                                        <rect key="frame" x="-1" y="5" width="49" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="上证" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fGI-qL-ToF">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="lN8-Ap-NvX"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jes-ZC-ped">
-                                        <rect key="frame" x="56" y="5" width="49" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="深证" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Xqt-PI-qXN">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="maM-x7-BTF"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O6H-zm-WQh">
-                                        <rect key="frame" x="114" y="5" width="62" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="创业板" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="umN-9D-SrN">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="MJv-98-EdX"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="noa-Fs-1rm">
-                                        <rect key="frame" x="181" y="5" width="49" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="港股" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3IC-7B-Gqv">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="pha-hU-MCY"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSa-0O-3zy">
-                                        <rect key="frame" x="235" y="5" width="49" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="美股" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="isp-Gm-v1h">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="radioButtonAction:" target="Xb1-YA-G79" id="K1j-61-gC3"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rV9-jp-CfC">
+                                <rect key="frame" x="18" y="215" width="122" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="GuQ-vX-4R3"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="*拖动行可以自由变换顺序" id="cUx-G9-rlR">
+                                    <font key="font" metaFont="system" size="10"/>
+                                    <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="6fP-vU-Sw2" firstAttribute="top" secondItem="G6t-El-gee" secondAttribute="bottom" id="0Ud-JV-xBV"/>
                             <constraint firstItem="cDG-hY-Ern" firstAttribute="top" secondItem="EWG-Qs-HWr" secondAttribute="top" constant="20" id="0rz-0g-KH0"/>
                             <constraint firstItem="fl1-jE-4gt" firstAttribute="centerY" secondItem="QmZ-bT-CPI" secondAttribute="centerY" id="1J3-ss-36g"/>
+                            <constraint firstItem="6fP-vU-Sw2" firstAttribute="leading" secondItem="EWG-Qs-HWr" secondAttribute="leading" constant="20" id="2p5-d9-hJy"/>
+                            <constraint firstItem="G6t-El-gee" firstAttribute="top" secondItem="cDG-hY-Ern" secondAttribute="bottom" constant="8" id="9fG-q5-RM5"/>
                             <constraint firstItem="fl1-jE-4gt" firstAttribute="leading" secondItem="QmZ-bT-CPI" secondAttribute="trailing" constant="20" id="BLN-0K-lp9"/>
                             <constraint firstItem="cDG-hY-Ern" firstAttribute="leading" secondItem="EWG-Qs-HWr" secondAttribute="leading" constant="20" id="IuX-rF-Vvk"/>
                             <constraint firstItem="QmZ-bT-CPI" firstAttribute="centerY" secondItem="cDG-hY-Ern" secondAttribute="centerY" id="MDw-NJ-wDh"/>
+                            <constraint firstAttribute="trailing" secondItem="6fP-vU-Sw2" secondAttribute="trailing" constant="20" id="MPP-aJ-oDW"/>
                             <constraint firstAttribute="trailing" secondItem="y0Z-Fw-3QM" secondAttribute="trailing" constant="20" id="NDA-cS-wxX"/>
-                            <constraint firstItem="y0Z-Fw-3QM" firstAttribute="top" secondItem="cDG-hY-Ern" secondAttribute="bottom" constant="38" id="Sj2-7n-peU"/>
+                            <constraint firstItem="rV9-jp-CfC" firstAttribute="top" secondItem="6fP-vU-Sw2" secondAttribute="bottom" constant="5" id="OFa-1y-W4Q"/>
                             <constraint firstAttribute="bottom" secondItem="y0Z-Fw-3QM" secondAttribute="bottom" constant="20" id="TCe-gx-Kvi"/>
+                            <constraint firstItem="G6t-El-gee" firstAttribute="leading" secondItem="EWG-Qs-HWr" secondAttribute="leading" constant="20" id="UZh-Q3-b8V"/>
+                            <constraint firstAttribute="trailing" secondItem="G6t-El-gee" secondAttribute="trailing" constant="20" id="Wlc-rz-M9E"/>
+                            <constraint firstItem="rV9-jp-CfC" firstAttribute="leading" secondItem="EWG-Qs-HWr" secondAttribute="leading" constant="20" id="ZeY-0s-VMJ"/>
+                            <constraint firstItem="y0Z-Fw-3QM" firstAttribute="top" secondItem="rV9-jp-CfC" secondAttribute="bottom" constant="5" id="bEb-Ay-RAH"/>
                             <constraint firstItem="QmZ-bT-CPI" firstAttribute="leading" secondItem="cDG-hY-Ern" secondAttribute="trailing" constant="8" id="mSd-TZ-mVc"/>
                             <constraint firstAttribute="trailing" secondItem="fl1-jE-4gt" secondAttribute="trailing" constant="14" id="puR-nX-L8p"/>
                             <constraint firstItem="y0Z-Fw-3QM" firstAttribute="leading" secondItem="EWG-Qs-HWr" secondAttribute="leading" constant="20" id="way-st-Stc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="guzhiView" destination="6fP-vU-Sw2" id="GiB-Le-Psk"/>
                         <outlet property="stockTF" destination="cDG-hY-Ern" id="Scg-Jr-0Uq"/>
                         <outlet property="tableView" destination="ftB-ta-zZn" id="Pk4-zX-HCk"/>
                         <outlet property="tipLabel" destination="fl1-jE-4gt" id="Ihe-Pe-dgO"/>
@@ -430,7 +611,7 @@
                 </viewController>
                 <customObject id="Xdx-jJ-vUC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105" y="-175"/>
+            <point key="canvasLocation" x="1485" y="-196"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="Z7h-ZZ-c9a">
@@ -441,7 +622,7 @@
                         <tabViewItem id="xBA-un-kxg"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="pZ5-Fc-VeM">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="700" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="message"/>
                         <connections>
@@ -456,7 +637,7 @@
                 </tabViewController>
                 <customObject id="5WE-bd-60S" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="492" y="99"/>
+            <point key="canvasLocation" x="650" y="75"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -737,13 +918,13 @@
         <!--SetVC-->
         <scene sceneID="EiQ-Tz-Twu">
             <objects>
-                <viewController title="Setting" id="ESc-jt-pBK" userLabel="SetVC" customClass="SetVC" sceneMemberID="viewController">
+                <viewController title="Setting" showSeguePresentationStyle="single" id="ESc-jt-pBK" userLabel="SetVC" customClass="SetVC" sceneMemberID="viewController">
                     <view key="view" id="KmC-EZ-Cep">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVV-X8-a6D">
-                                <rect key="frame" x="138" y="126" width="204" height="19"/>
+                                <rect key="frame" x="178" y="126" width="204" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="kAv-x3-GuE"/>
                                 </constraints>
@@ -753,7 +934,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-WA-jqy">
-                                <rect key="frame" x="138" y="166" width="84" height="17"/>
+                                <rect key="frame" x="178" y="166" width="84" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="浮窗透明度：" id="sfp-Lj-1rC">
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -761,7 +942,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-DP-Jwx">
-                                <rect key="frame" x="138" y="89" width="182" height="18"/>
+                                <rect key="frame" x="178" y="89" width="182" height="18"/>
                                 <buttonCell key="cell" type="check" title="是否始终显示在窗口最前面" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qAg-Yr-jAm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -786,7 +967,7 @@
                 </viewController>
                 <customObject id="w7I-Os-pLa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1094" y="296"/>
+            <point key="canvasLocation" x="1415" y="182"/>
         </scene>
     </scenes>
 </document>

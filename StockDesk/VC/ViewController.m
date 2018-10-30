@@ -144,7 +144,7 @@ static NSString *kStockTimer = @"kStockTimer";
 
 - (void)windowDidResize:(NSNotification *)notification {
     //NSLog(@"notification %@",notification.object);
-    NSWindow *window = notification.object;
+//    NSWindow *window = notification.object;
     //    [_tableView reloadData];
 //    NSLog(@"window %@",NSStringFromRect(window.frame));
 }
@@ -170,11 +170,9 @@ static NSString *kStockTimer = @"kStockTimer";
     StockModel *sm = [_dataSourceArray objectAtIndex:row];
     if ([strIdt isEqualToString:@"name"]) {
         aView.textField.stringValue = sm.name;
-//        aView.textField.stringValue = @"名字很长不知道有没有这么长的股票";
         aView.textField.textColor = ThemeDarkGrayColor;
     }else if([strIdt isEqualToString:@"percent"]){
         aView.textField.stringValue = SF(@"%.2f%%",sm.percent);
-        aView.textField.stringValue = @"813.29%";
         if (sm.percent>0) {
             aView.textField.textColor = ThemeRedColor;
         }else if(sm.percent==0){
@@ -186,27 +184,22 @@ static NSString *kStockTimer = @"kStockTimer";
         float delta = sm.nowPrice-sm.yesEndPrice;
         if (delta>0) {
             aView.textField.stringValue = SF(@"+%.2f",delta);
-//            aView.textField.stringValue = @"-1323.29";
             aView.textField.textColor = ThemeRedColor;
         }else if(sm.percent==0){
             aView.textField.stringValue = @"0.00";
             aView.textField.textColor = ThemeGrayColor;
         }else{
             aView.textField.stringValue = SF(@"%.2f",delta);
-//            aView.textField.stringValue = @"8231323.29389";
             aView.textField.textColor = ThemeGreenColor;
         }
     }else if([strIdt isEqualToString:@"now"]){
         aView.textField.stringValue = SF(@"现%.2f",sm.nowPrice);
-//        aView.textField.stringValue = @"现13223.29";
         aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"low"]){
         aView.textField.stringValue = SF(@"低%.2f",sm.todayLowPrice);
-//        aView.textField.stringValue = @"低223121321.082381";
         aView.textField.textColor = ThemeGrayColor;
     }else if([strIdt isEqualToString:@"high"]){
         aView.textField.stringValue = SF(@"高%.2f",sm.todayHighPrice);
-//        aView.textField.stringValue = @"高838382.8989";
         aView.textField.textColor = ThemeGrayColor;
     }
     
@@ -256,15 +249,10 @@ static NSString *kStockTimer = @"kStockTimer";
 //    _selectedRowNum++;
 //}
 
-#pragma mark -
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
-}
 // 选中的响应
 -(void)tableViewSelectionDidChange:(nonnull NSNotification* )notification{
     self.tableView = notification.object;
-    //do something
-    NSLog(@"-----%ld", (long)self.tableView.selectedRow);
+//    NSLog(@"-----%ld", (long)self.tableView.selectedRow);
 }
 
 - (void)setRepresentedObject:(id)representedObject {

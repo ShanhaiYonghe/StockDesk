@@ -12,8 +12,14 @@
 
 +(BOOL)saveStock:(NSString*)code;
 
++(BOOL)saveStocks:(NSArray*)codeArray;
+
 +(NSArray *)getStocks;
 
 +(void)delStock:(NSInteger)idx;
+
++(void)delStockByCode:(NSString*)code;
+
++(void)delAllStocks;
 
 @end

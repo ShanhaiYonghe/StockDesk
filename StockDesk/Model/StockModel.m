@@ -23,6 +23,9 @@
 }
 
 - (instancetype)initWith:(NSArray *)dataArr type:(NSString*)type{
+    if (dataArr.count<5) {
+        return nil;
+    }
     StockModel *sm = [StockModel new];
     if ([type isEqualToString:@"sh"]||[type isEqualToString:@"sz"]) {
         sm.name = dataArr[0];
@@ -86,6 +89,24 @@
             NSString *type = [stock substringWithRange:range2];
             
             StockModel *sm = [[StockModel alloc]initWith:arr type:type];
+            NSString * code = [[Cache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
+            sm.code = code;
+//            if ([code rangeOfString:@"sz"].location == 0 ||
+//                [code rangeOfString:@"sh"].location == 0 ||
+//                [code rangeOfString:@"hk"].location == 0 ) {
+//                code = [code substringFromIndex:2];
+//            }else
+            NSString *codeDes = [code copy];
+            if ([codeDes rangeOfString:@"gb_"].location == 0){
+                codeDes = [codeDes substringFromIndex:3];
+                if ([codeDes containsString:@"$"]){
+                    codeDes = [codeDes substringFromIndex:1];
+                }
+            }else if([codeDes isEqualToString:@"hkHSI"]){
+                codeDes = @"800000";
+            }
+            codeDes = [codeDes uppercaseString];
+            sm.codeDes = codeDes;
             [mArr addObject:sm];
         }
         
