@@ -83,4 +83,12 @@ static NSString *notifyKey = @"notifyKey";
     return YES;
 }
 
++(id)getPriceByCode:(NSString *)stockCode{
+    if (!stockCode.length) {
+        return nil;
+    }
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey];
+    return [dict objectForKey:stockCode];
+}
+
 @end

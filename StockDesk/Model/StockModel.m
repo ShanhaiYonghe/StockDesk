@@ -61,7 +61,7 @@
 
 + (void)getData:(ResultBlock)resultBlock{
     NSString *stockListStr = [[Cache getStocks] componentsJoinedByString:@","];
-    
+    Log(@"%@",stockListStr);
     if (stockListStr.length<4) {
         resultBlock(nil);
     }

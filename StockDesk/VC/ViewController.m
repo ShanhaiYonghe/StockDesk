@@ -54,8 +54,7 @@ static NSString *kStockTimer = @"kStockTimer";
     
     @WeakSelf(self);
     [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:NO action:^{
-        
-        Log(@"timer");
+        Log(@"kStockTimer");
         [StockModel getData:^(NSArray *dataList) {
             if (dataList.count == 0 && weakSelf.dataSourceArray.count == 0) {
                 [[WSTimer sharedInstance] cancelTimer:kStockTimer];
@@ -65,7 +64,17 @@ static NSString *kStockTimer = @"kStockTimer";
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
                 
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
-                
+//                for (StockModel *sm in dataList) {
+//                    id obj = [Cache getPriceByCode:sm.code];
+//                    if (obj) {
+//                        double price = [obj doubleValue];
+//                        double delta = fabs(sm.nowPrice - price);
+//                        if (delta > 0.2) {
+//
+//                        }
+//                    }
+//
+//                }
                 
             }
             dispatch_async(dispatch_get_main_queue(), ^{

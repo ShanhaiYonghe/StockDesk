@@ -31,4 +31,6 @@
 
 +(BOOL)delNotifyByCode:(NSString*)stockCode;
 
++(id)getPriceByCode:(NSString*)stockCode;
+
 @end

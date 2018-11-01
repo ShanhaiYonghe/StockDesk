@@ -9,6 +9,7 @@
 #import "EditVC.h"
 #import "StockModel.h"
 #import "Cache.h"
+#import "NotifyVC.h"
 
 @interface EditVC () <NSTableViewDelegate,NSTableViewDataSource,NSUserNotificationCenterDelegate>
 
@@ -30,6 +31,8 @@
 
 @property (weak) IBOutlet NSView *guzhiView;
 
+@property (nonatomic,strong) NSArray *zhishuArray;
+
 
 
 @end
@@ -46,6 +49,8 @@
     _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     
     [self updateZhishu];
+    
+    _zhishuArray = @[@"sh000001",@"sz399001",@"sz399006",@"sz399300",@"sz399005",@"sh000016",@"hkHSI",@"gb_$dji",@"gb_ixic",@"gb_$inx",];
 }
 
 - (void)updateZhishu{
@@ -152,7 +157,6 @@
     }else if ([b.title isEqualToString:@"美股"]) {
         _type = @"gb_";
     }
-    Log(@"%@",_type);
 }
 
 #pragma mark - NSTableViewDelegate
@@ -206,7 +210,7 @@
         [btn setTarget:self];
         [btn setAction:@selector(del:)];
         [aView addSubview:btn];
-    }else if([strIdt isEqualToString:@"notify"]){
+    }else if([strIdt isEqualToString:@"notify"] && ![_zhishuArray containsObject:sm.code]){
         NSButton *btn = [NSButton new];
         btn.bezelStyle = NSBezelStyleRoundRect;
         [btn setTitle:@"添加通知"];
@@ -279,6 +283,8 @@
 
 #pragma mark 添加通知
 - (void)addNotifi:(id)sender{
+    /**
+     
 //    NSButton *b = sender;
 //    [Cache delStock:b.tag];
 //    [self getData];
@@ -293,7 +299,17 @@
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
     //设置通知的代理
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    */
     
+    NSButton *b = sender;
+    Log(@"%ld",b.tag);
+    StockModel *sm = [_dataSourceArray objectAtIndex:b.tag];
+    
+    NSStoryboard *sb = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NotifyVC *vc =  [sb instantiateControllerWithIdentifier:@"notifyVC"];
+    vc.title = SF(@"%@(%@)",sm.name,sm.codeDes);
+    vc.price = sm.nowPrice;
+    [self presentViewControllerAsModalWindow:vc];
 }
 
 - (IBAction)addZhishuAction:(id)sender {
