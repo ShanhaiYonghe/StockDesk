@@ -550,6 +550,19 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
+                                                <tableColumn identifier="notify" width="70" minWidth="40" maxWidth="70" id="N93-AQ-c2o" userLabel="notify">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="afq-BO-RWe">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
                                             </tableColumns>
                                             <connections>
                                                 <outlet property="dataSource" destination="Xb1-YA-G79" id="fLg-Yh-fjb"/>
@@ -624,7 +637,7 @@
                     <tabView key="tabView" type="noTabsNoBorder" id="pZ5-Fc-VeM">
                         <rect key="frame" x="0.0" y="0.0" width="700" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <font key="font" metaFont="message"/>
+                        <font key="font" metaFont="system"/>
                         <connections>
                             <outlet property="delegate" destination="CGx-MZ-kLa" id="FGk-p5-N1m"/>
                         </connections>
@@ -920,11 +933,11 @@
             <objects>
                 <viewController title="Setting" showSeguePresentationStyle="single" id="ESc-jt-pBK" userLabel="SetVC" customClass="SetVC" sceneMemberID="viewController">
                     <view key="view" id="KmC-EZ-Cep">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="700" height="370"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVV-X8-a6D">
-                                <rect key="frame" x="178" y="126" width="204" height="19"/>
+                                <rect key="frame" x="248" y="176" width="204" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="kAv-x3-GuE"/>
                                 </constraints>
@@ -934,7 +947,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-WA-jqy">
-                                <rect key="frame" x="178" y="166" width="84" height="17"/>
+                                <rect key="frame" x="248" y="216" width="84" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="浮窗透明度：" id="sfp-Lj-1rC">
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -942,8 +955,8 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-DP-Jwx">
-                                <rect key="frame" x="178" y="89" width="182" height="18"/>
-                                <buttonCell key="cell" type="check" title="是否始终显示在窗口最前面" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qAg-Yr-jAm">
+                                <rect key="frame" x="248" y="139" width="182" height="18"/>
+                                <buttonCell key="cell" type="check" title="窗口是否始终显示在最前面" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qAg-Yr-jAm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
@@ -967,7 +980,7 @@
                 </viewController>
                 <customObject id="w7I-Os-pLa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415" y="182"/>
+            <point key="canvasLocation" x="1485" y="258"/>
         </scene>
     </scenes>
 </document>

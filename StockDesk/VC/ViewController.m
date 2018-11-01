@@ -63,6 +63,10 @@ static NSString *kStockTimer = @"kStockTimer";
             if (dataList.count) {
                 [weakSelf.dataSourceArray removeAllObjects];
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
+                
+                //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
+                
+                
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];

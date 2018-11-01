@@ -10,7 +10,7 @@
 #import "StockModel.h"
 #import "Cache.h"
 
-@interface EditVC () <NSTableViewDelegate,NSTableViewDataSource>
+@interface EditVC () <NSTableViewDelegate,NSTableViewDataSource,NSUserNotificationCenterDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
 
@@ -45,6 +45,10 @@
     [_tableView registerForDraggedTypes:@[NSStringPboardType]];
     _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     
+    [self updateZhishu];
+}
+
+- (void)updateZhishu{
     NSArray *btnArray = _guzhiView.subviews;
     for (NSButton *b in btnArray) {
         if ([b.title containsString:@"上证指数"] && [[Cache getStocks] containsObject:@"sh000001"]) {//sh000001
@@ -85,7 +89,6 @@
             b.state = NSControlStateValueOff;
         }
     }
-
 }
 
 - (void)getData{
@@ -101,6 +104,7 @@
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.tableView reloadData];
+                    [weakSelf updateZhishu];
                 });
             }
         }];
@@ -202,6 +206,15 @@
         [btn setTarget:self];
         [btn setAction:@selector(del:)];
         [aView addSubview:btn];
+    }else if([strIdt isEqualToString:@"notify"]){
+        NSButton *btn = [NSButton new];
+        btn.bezelStyle = NSBezelStyleRoundRect;
+        [btn setTitle:@"添加通知"];
+        btn.tag = row;
+        btn.frame = CGRectMake(0, 0, 70, 20);
+        [btn setTarget:self];
+        [btn setAction:@selector(addNotifi:)];
+        [aView addSubview:btn];
     }
     
     return aView;
@@ -264,6 +277,25 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
 }
 
+#pragma mark 添加通知
+- (void)addNotifi:(id)sender{
+//    NSButton *b = sender;
+//    [Cache delStock:b.tag];
+//    [self getData];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+    NSUserNotification *localNotify = [[NSUserNotification alloc] init];
+    localNotify.title = @"title";//标题
+    localNotify.subtitle = @"subtitle";//副标题
+//    localNotify.contentImage = [NSImage imageNamed: @"swift"];//显示在弹窗右边的提示。
+    localNotify.informativeText = @"body message";
+    localNotify.soundName = NSUserNotificationDefaultSoundName;
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
+    //设置通知的代理
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
+}
+
 - (IBAction)addZhishuAction:(id)sender {
     NSButton *b = sender;
     NSString *code = @"";
@@ -303,6 +335,19 @@
     [self getData];
 }
 
+#pragma mark NSUserNotificationCenterDelegate
 
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification{
+    Log(@"%@",notification);
+//    [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notification];
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification{
+    Log(@"%@",notification);
+}
+//returen YES;强制显示(即不管通知是否过多)
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
+    return YES;
+}
 
 @end

@@ -10,6 +10,9 @@
 
 @interface Cache : NSObject
 
+
+#pragma mark Stock
+
 +(BOOL)saveStock:(NSString*)code;
 
 +(BOOL)saveStocks:(NSArray*)codeArray;
@@ -21,5 +24,11 @@
 +(void)delStockByCode:(NSString*)code;
 
 +(void)delAllStocks;
+
+#pragma mark notify
+
++(BOOL)saveNotify:(NSDictionary *)dict;
+
++(BOOL)delNotifyByCode:(NSString*)stockCode;
 
 @end

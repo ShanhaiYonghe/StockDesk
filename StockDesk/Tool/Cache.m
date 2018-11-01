@@ -9,6 +9,13 @@
 #import "Cache.h"
 
 static NSString *stockKey = @"stockKey";
+static NSString *notifyKey = @"notifyKey";
+
+@interface Cache()
+
+@property (nonatomic, strong) NSMutableDictionary *notifyDict;
+
+@end
 
 @implementation Cache
 
@@ -53,6 +60,27 @@ static NSString *stockKey = @"stockKey";
 
 +(void)delAllStocks{
     [[NSUserDefaults standardUserDefaults] setObject:@[ ] forKey:stockKey];
+}
+
+
++(BOOL)saveNotify:(NSDictionary *)dict{
+    if (!dict) {
+        return NO;
+    }
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey]];
+    [mutableDict addEntriesFromDictionary:dict];
+    [[NSUserDefaults standardUserDefaults]setObject:mutableDict forKey:notifyKey];
+    return YES;
+}
+
++(BOOL)delNotifyByCode:(NSString *)stockCode{
+    if (!stockCode.length) {
+        return NO;
+    }
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey]];
+    [mutableDict removeObjectForKey:stockCode];
+    [[NSUserDefaults standardUserDefaults]setObject:mutableDict forKey:notifyKey];
+    return YES;
 }
 
 @end
