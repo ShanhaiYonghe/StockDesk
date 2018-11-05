@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     float v = [[NSUserDefaults standardUserDefaults] floatForKey:kWindowAlpha];
+    Log(@"alpha:%f",v);
     _slider.stringValue = SF(@"%f",v*100);    
 }
 

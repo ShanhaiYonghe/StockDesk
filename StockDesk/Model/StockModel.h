@@ -32,7 +32,8 @@ typedef void(^SuccessBlock)(BOOL);
 
 - (instancetype)initWith:(NSArray*)dataArr type:(NSString*)type;
 
-+ (void)getData:(ResultBlock)resultBlock;
++ (void)getData:(ResultBlock)resultBlock;//获取信息
+
 + (void)addStock:(NSString *)type code:(NSString *)code return:(SuccessBlock)successBlock;
 
 @end

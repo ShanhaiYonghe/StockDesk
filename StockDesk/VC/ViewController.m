@@ -7,22 +7,16 @@
 //
 
 #import "ViewController.h"
+
 #import "WSTimer.h"
 #import "StockModel.h"
-#import "Cache.h"
+#import "StockCache.h"
 
 @interface ViewController()<NSTableViewDelegate,NSTableViewDataSource>
 
 @property (weak) IBOutlet NSTableView *tableView;
-
-@property (nonatomic,strong)NSScrollView *tableContainerView;
 @property (nonatomic,strong)NSMutableArray *dataSourceArray;
-@property (nonatomic,strong)NSTextField *scrollTF;
-@property (nonatomic,strong)NSButton *deleteBtn;
-@property (nonatomic,strong)NSButton *addBtn;
-
-@property (nonatomic,assign)NSInteger selectedRowNum;
-@property (nonatomic,strong) NSTableView *tableView1;
+@property (nonatomic,strong) StockModel *dragStockModel;
 
 @end
 
@@ -41,6 +35,9 @@ static NSString *kStockTimer = @"kStockTimer";
     
     _dataSourceArray = [NSMutableArray new];
     
+    [_tableView registerForDraggedTypes:@[NSStringPboardType]];
+    _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
+    
     [self updateData];
 }
 
@@ -53,7 +50,7 @@ static NSString *kStockTimer = @"kStockTimer";
     [[WSTimer sharedInstance] cancelTimer:kStockTimer];
     
     @WeakSelf(self);
-    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:YES action:^{
+    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:NO action:^{
         Log(@"kStockTimer");
         [StockModel getData:^(NSArray *dataList) {
             if (dataList.count == 0 && weakSelf.dataSourceArray.count == 0) {
@@ -65,18 +62,21 @@ static NSString *kStockTimer = @"kStockTimer";
                 
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
                 for (StockModel *sm in dataList) {
-                    NSDictionary *dic = [Cache getNotifyByCode:sm.code];
-                    if (dic) {
-                        double price = [dic[@"price"] doubleValue];
-                        PriceType type = [dic[@"priceType"] integerValue];
-                        if (type==PriceTypeHigh && sm.nowPrice >= price) { //高于
-                            [weakSelf sendNotify:sm price:price type:type];
-                            [Cache delNotifyByCode:sm.code];
-                        }else if(type==PriceTypeLow && sm.nowPrice <= price){ //低于
-                            [weakSelf sendNotify:sm price:price type:type];
-                            [Cache delNotifyByCode:sm.code];
-                        }
-                    }
+//                    NSDictionary *dic = [Cache getNotifyByCode:sm.code];
+//                    if (dic) {
+//                        double price = [dic[@"price"] doubleValue];
+//                        PriceType type = [dic[@"priceType"] integerValue];
+//                        if (type==PriceTypeHigh && sm.nowPrice >= price) { //高于
+//                            [weakSelf sendNotify:sm price:price type:type];
+//                            [Cache delNotifyByCode:sm.code];
+//                        }else if(type==PriceTypeLow && sm.nowPrice <= price){ //低于
+//                            [weakSelf sendNotify:sm price:price type:type];
+//                            [Cache delNotifyByCode:sm.code];
+//                        }
+//                    }
+                    //SF(@"%@",sm.name); //标题
+                    //SF(@"%@",sm.codeDes);//副标题
+                    //SF(@"价格已经%@%.2f",type==PriceTypeHigh?@"高于":@"低于",price);
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -85,95 +85,6 @@ static NSString *kStockTimer = @"kStockTimer";
         }];
         
     } queue:nil];
-}
-
-- (void)sendNotify:(StockModel *)sm price:(double)price type:(PriceType)type{
-     NSUserNotification *localNotify = [[NSUserNotification alloc] init];
-    localNotify.title = SF(@"%@",sm.name); //标题
-    localNotify.subtitle = SF(@"%@",sm.codeDes);//副标题
-     //    localNotify.contentImage = [NSImage imageNamed: @"swift"];//显示在弹窗右边的提示。
-     localNotify.informativeText = SF(@"价格已经%@%.2f",type==PriceTypeHigh?@"高于":@"低于",price);
-     localNotify.soundName = NSUserNotificationDefaultSoundName;
-     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
-     //设置通知的代理
-//     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-}
-
-#pragma mark - private
-- (void)addTable{
-    //删除按钮
-    _deleteBtn = [[NSButton alloc] initWithFrame:CGRectMake(0, 0, 70, 25)];
-    _deleteBtn.title = @"删除选中行";
-    _deleteBtn.wantsLayer = YES;
-    _deleteBtn.layer.cornerRadius = 3.0f;
-    _deleteBtn.layer.borderColor = [NSColor lightGrayColor].CGColor;
-    [_deleteBtn setTarget:self];
-//    _deleteBtn.action = @selector(deleteTheSelectedRow);
-    [self.view addSubview:_deleteBtn];
-    
-    //添加按钮
-    _addBtn = [[NSButton alloc] initWithFrame:CGRectMake(90, 0, 70, 25)];
-    _addBtn.title = @"上面添一行";
-    _addBtn.wantsLayer = YES;
-    _addBtn.layer.cornerRadius = 3.0f;
-    _addBtn.layer.borderColor = [NSColor lightGrayColor].CGColor;
-    [_addBtn setTarget:self];
-//    _addBtn.action = @selector(addRowUnderTheSelectedRow);
-    [self.view addSubview:_addBtn];
-    
-    //滚动显示的TF
-    _scrollTF = [[NSTextField alloc] initWithFrame:CGRectMake(180, 30, 80, 15)];
-    _scrollTF.stringValue = @"滚动 0.0";
-    _scrollTF.font = [NSFont systemFontOfSize:15.0f];
-    _scrollTF.textColor = [NSColor blackColor];
-    _scrollTF.drawsBackground = NO;
-    _scrollTF.bordered = NO;
-    _scrollTF.focusRingType = NSFocusRingTypeNone;
-    _scrollTF.editable = NO;
-//    [self.view addSubview:_scrollTF];
-    
-    //tableView
-    _tableContainerView = [[NSScrollView alloc] initWithFrame:CGRectMake(0, 30, 440, 200)];
-    _tableView1 = [[NSTableView alloc] initWithFrame:CGRectMake(0, 0,
-                                                               _tableContainerView.frame.size.width-20,
-                                                               _tableContainerView.frame.size.height)];
-    [_tableView1 setBackgroundColor:[NSColor colorWithCalibratedRed:220.0/255 green:220.0/255 blue:220.0/255 alpha:1.0]];
-    _tableView1.focusRingType = NSFocusRingTypeNone;                             //tableview获得焦点时的风格
-    _tableView1.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;//行高亮的风格
-    _tableView1.headerView.frame = NSZeroRect;                                   //表头
-    _tableView1.delegate = self;
-    _tableView1.dataSource = self;
-    
-    // 第一列
-    NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"firstColumn"];
-    [column1 setWidth:200];
-    [_tableView1 addTableColumn:column1];//第一列
-    
-    // 第二列
-    NSTableColumn * column2 = [[NSTableColumn alloc] initWithIdentifier:@"secondColumn"];
-    [column2 setWidth:200];
-    [_tableView1 addTableColumn:column2];//第二列
-    
-    [_tableContainerView setDocumentView:_tableView1];
-    [_tableContainerView setDrawsBackground:NO];        //不画背景（背景默认画成白色）
-    [_tableContainerView setHasVerticalScroller:YES];   //有垂直滚动条
-    [_tableContainerView setHasHorizontalScroller:YES];   //有水平滚动条
-    _tableContainerView.autohidesScrollers = YES;       //自动隐藏滚动条（滚动的时候出现）
-    [self.view addSubview:_tableContainerView];
-    
-    //监测tableview滚动
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(tableviewDidScroll:)
-                                                name:NSViewBoundsDidChangeNotification
-                                              object:[[_tableView1 enclosingScrollView] contentView]];
-    
-}
-
-- (void)windowDidResize:(NSNotification *)notification {
-    //NSLog(@"notification %@",notification.object);
-//    NSWindow *window = notification.object;
-    //    [_tableView reloadData];
-//    NSLog(@"window %@",NSStringFromRect(window.frame));
 }
 
 #pragma mark - tableView
@@ -186,7 +97,6 @@ static NSString *kStockTimer = @"kStockTimer";
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
-    
     NSString *strIdt=[tableColumn identifier];
     
     NSTableCellView *aView = [tableView makeViewWithIdentifier:strIdt owner:self];
@@ -220,8 +130,17 @@ static NSString *kStockTimer = @"kStockTimer";
             aView.textField.textColor = ThemeGreenColor;
         }
     }else if([strIdt isEqualToString:@"now"]){
-        aView.textField.stringValue = SF(@"现%.2f",sm.nowPrice);
-        aView.textField.textColor = ThemeGrayColor;
+        float delta = sm.nowPrice-sm.yesEndPrice;
+        if (delta>0) {
+            aView.textField.stringValue = SF(@"%.2f",sm.nowPrice);
+            aView.textField.textColor = ThemeRedColor;
+        }else if(sm.percent==0){
+            aView.textField.stringValue = SF(@"%.2f",sm.nowPrice);
+            aView.textField.textColor = ThemeGrayColor;
+        }else{
+            aView.textField.stringValue = SF(@"%.2f",sm.nowPrice);
+            aView.textField.textColor = ThemeGreenColor;
+        }
     }else if([strIdt isEqualToString:@"low"]){
         aView.textField.stringValue = SF(@"低%.2f",sm.todayLowPrice);
         aView.textField.textColor = ThemeGrayColor;
@@ -233,53 +152,55 @@ static NSString *kStockTimer = @"kStockTimer";
     return aView;
 }
 
-//-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
-//    NSTextFieldCell *textcell = cell;
-//    [textcell setTitle:@"fuck"];
-//}
-
-//- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row{
-//    _selectedRowNum = row;
-//    return YES;
-//}
-
-- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn{
-    NSLog(@"%@", tableColumn.dataCell);
+#pragma mark - drag & drop
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation{
+    if (dropOperation == NSTableViewDropAbove) {
+        return NSDragOperationMove;
+    }
+    return NSDragOperationNone;
 }
 
-#pragma mark - tableview滚动处理
--(void)tableviewDidScroll:(NSNotification *)notification{
-    NSClipView *contentView = [notification object];
-    CGFloat scrollY = contentView.visibleRect.origin.y-20;//这里减去20是因为tableHeader的20高度
-    _scrollTF.stringValue = [NSString stringWithFormat:@"滚动 %.1f",scrollY];
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard{
+    [pboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:self];//定义存在剪切板的哪里，不加这句代码貌似拖拽不起作用
+    NSArray *array = [_dataSourceArray objectsAtIndexes:rowIndexes];//拖拽的列表数组
+    _dragStockModel = array.firstObject;
+    return YES;
 }
 
-#pragma mark - 删除&&添加某一行
-//-(void)deleteTheSelectedRow{
-//    if (_selectedRowNum == -1) {NSLog(@"请先选择要删除的行"); return;}
-//    [_tableView beginUpdates];
-//    [_dataSourceArray removeObjectAtIndex:_selectedRowNum];
-//    [_tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:_selectedRowNum] withAnimation:NSTableViewAnimationSlideUp];
-//    [_tableView endUpdates];
-//    _selectedRowNum = -1;
-//}
-//
-//-(void)addRowUnderTheSelectedRow{
-//    if (_selectedRowNum == -1) {NSLog(@"请先选择要哪行上面添一行"); return;}
-//    NSString *seletedDataObject = [_dataSourceArray objectAtIndex:_selectedRowNum];
-//    NSString *addObject = [NSString stringWithFormat:@"%@+",seletedDataObject];
-//
-//    [_tableView beginUpdates];
-//    [_dataSourceArray insertObject:addObject atIndex:_selectedRowNum];
-//    [_tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:_selectedRowNum] withAnimation:NSTableViewAnimationSlideDown];
-//    [_tableView endUpdates];
-//    _selectedRowNum++;
-//}
-
-// 选中的响应
--(void)tableViewSelectionDidChange:(nonnull NSNotification* )notification{
-    self.tableView = notification.object;
-//    NSLog(@"-----%ld", (long)self.tableView.selectedRow);
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation{
+    NSInteger idx = [_dataSourceArray indexOfObject:_dragStockModel];//拖动的obj
+    BOOL flag = NO;
+    if (idx > row) { //下面往上面移动
+        StockModel *sm = _dataSourceArray[row];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            [_dataSourceArray removeObject:_dragStockModel];
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            flag = YES;
+        }
+    }
+    if (idx < row) {//上面往下面移动
+        StockModel *sm = _dataSourceArray[row-1];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            [_dataSourceArray removeObject:_dragStockModel];
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            flag = YES;
+        }
+    }
+    if (flag) {
+        NSMutableArray *arr = [NSMutableArray new];
+        for (StockModel *s in _dataSourceArray) {
+            [arr addObject:s.code];
+        }
+        [StockCache delAllStocks];
+        [StockCache saveStocks:arr];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateEditStock" object:nil];
+        
+        [_tableView reloadData];
+        _dragStockModel = nil;
+        [_tableView deselectAll:nil];
+    }
+    return YES;
 }
 
 - (void)setRepresentedObject:(id)representedObject {

@@ -7,7 +7,8 @@
 //
 
 #import "StockModel.h"
-#import "Cache.h"
+
+#import "StockCache.h"
 
 @interface StockModel()
 
@@ -60,8 +61,10 @@
 }
 
 + (void)getData:(ResultBlock)resultBlock{
-    NSString *stockListStr = [[Cache getStocks] componentsJoinedByString:@","];
+    NSString *stockListStr = [[StockCache getStocks] componentsJoinedByString:@","];
+    //限制时间段 ***区分第一次和循环获取 TODO
     Log(@"%@",stockListStr);
+    
     if (stockListStr.length<4) {
         resultBlock(nil);
     }
@@ -71,8 +74,8 @@
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        NSString *gbkNSString2 = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
-        NSMutableArray *stockArr = [NSMutableArray arrayWithArray:[gbkNSString2 componentsSeparatedByString:@";"]];
+        NSString *gbkNSString = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+        NSMutableArray *stockArr = [NSMutableArray arrayWithArray:[gbkNSString componentsSeparatedByString:@";"]];
         if (stockArr.count) {
             [stockArr removeLastObject];
         }
@@ -89,13 +92,9 @@
             NSString *type = [stock substringWithRange:range2];
             
             StockModel *sm = [[StockModel alloc]initWith:arr type:type];
-            NSString * code = [[Cache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
+            NSString * code = [[StockCache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
             sm.code = code;
-//            if ([code rangeOfString:@"sz"].location == 0 ||
-//                [code rangeOfString:@"sh"].location == 0 ||
-//                [code rangeOfString:@"hk"].location == 0 ) {
-//                code = [code substringFromIndex:2];
-//            }else
+
             NSString *codeDes = [code copy];
             if ([codeDes rangeOfString:@"gb_"].location == 0){
                 codeDes = [codeDes substringFromIndex:3];
@@ -107,6 +106,7 @@
             }
             codeDes = [codeDes uppercaseString];
             sm.codeDes = codeDes;
+            
             [mArr addObject:sm];
         }
         
@@ -123,10 +123,10 @@
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        NSString *gbkNSString2 = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
-        if (gbkNSString2.length > 50) {
+        NSString *gbkNSString = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+        if (gbkNSString.length > 50) {
             //添加成功
-            [Cache saveStock:[NSString stringWithFormat:@"%@%@",type,code]];
+            [StockCache saveStock:[NSString stringWithFormat:@"%@%@",type,code]];
             successBlock(YES);
         }else{
             //添加失败

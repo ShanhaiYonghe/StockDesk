@@ -18,7 +18,8 @@
 - (void)windowWillLoad{
     [super windowWillLoad];
     
-    [[NSUserDefaults standardUserDefaults]setFloat:0 forKey:kAppLoadTimes];
+//    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:kAppLoadTimes]; //测试用
+    
     NSInteger appLoadTimes = [[NSUserDefaults standardUserDefaults]integerForKey:kAppLoadTimes];
     if (appLoadTimes == 0) {
         Log(@"app load times:%ld",appLoadTimes);
@@ -27,7 +28,7 @@
     }
     [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];
     
-//    [Cache delAllStocks];
+//    [Cache delAllStocks]; //测试用
 }
 
 - (void)windowDidLoad {
@@ -43,12 +44,6 @@
     [self.window setLevel:isFront?NSStatusWindowLevel:NSNormalWindowLevel];
 
     self.window.backgroundColor = NSColorFromHEX(0x000000, 0);
-    
-//    CGRect screen = [NSScreen mainScreen].frame;
-//    [self.window setFrame:CGRectMake(0, 0, 300, 200) display:YES];
-//    [self.window setFrameOrigin:CGPointMake(screen.size.width/2, screen.size.height/2)];
-//    [self.window setLevel:NSStatusWindowLevel];
-//    self.window.styleMask = NSTexturedBackgroundWindowMask;
 }
 
 @end

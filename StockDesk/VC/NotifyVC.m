@@ -7,7 +7,7 @@
 //
 
 #import "NotifyVC.h"
-#import "Cache.h"
+#import "Notify.h"
 
 @interface NotifyVC ()
 
@@ -40,11 +40,14 @@
  添加通知服务
  */
 - (IBAction)addAction:(id)sender {
-    BOOL result = [Cache saveNotify:@{
+    double p = [_priceTf.stringValue doubleValue];
+    
+    BOOL result = [Notify saveNotify:@{
                         @"code":self.stockCode?:@"",
-                        @"price":@(self.price),
+                        @"price":@(p),
                         @"priceType":@(_priceType)
                         }];
+    
     NSAlert *alert = [[NSAlert alloc]init];
     if (result) {
         alert.messageText = @"添加成功";
