@@ -26,6 +26,7 @@
 		01366DA0217DD0D000B1FB51 /* SetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		01395AF9218B086200F95913 /* NotifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyVC.h; sourceTree = "<group>"; };
 		01395AFA218B086200F95913 /* NotifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyVC.m; sourceTree = "<group>"; };
+		01395AFC218FF7AD00F95913 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		0182A25B217D6AE00056BB21 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		01BFAEA3214F956C000DBB7F /* wc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wc.h; sourceTree = "<group>"; };
 		01BFAEA4214F956C000DBB7F /* wc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wc.m; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 				01BFAEAD2150F418000DBB7F /* WSTimer.m */,
 				01C305A3215389EC0037A01E /* Cache.h */,
 				01C305A4215389EC0037A01E /* Cache.m */,
+				01395AFC218FF7AD00F95913 /* Common.h */,
 			);
 			path = Tool;
 			sourceTree = "<group>";

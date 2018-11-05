@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NotifyVC : NSViewController
 
 @property (nonatomic,assign) double price;
-
+@property (nonatomic,copy) NSString *stockCode;
 @end
 
 NS_ASSUME_NONNULL_END

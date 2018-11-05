@@ -7,11 +7,7 @@
 //
 
 #import "NotifyVC.h"
-
-typedef enum : NSUInteger {
-    PriceTypeHigh = 0,
-    PriceTypeLow,
-} PriceType;
+#import "Cache.h"
 
 @interface NotifyVC ()
 
@@ -40,9 +36,27 @@ typedef enum : NSUInteger {
     }
 }
 
+/**
+ 添加通知服务
+ */
 - (IBAction)addAction:(id)sender {
-    
-    [self dismissController:self];
+    BOOL result = [Cache saveNotify:@{
+                        @"code":self.stockCode?:@"",
+                        @"price":@(self.price),
+                        @"priceType":@(_priceType)
+                        }];
+    NSAlert *alert = [[NSAlert alloc]init];
+    if (result) {
+        alert.messageText = @"添加成功";
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            [self dismissController:self];
+        }];
+    }else{
+        alert.messageText = @"添加失败";
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+    }
 }
 
 - (IBAction)plusAction:(id)sender {

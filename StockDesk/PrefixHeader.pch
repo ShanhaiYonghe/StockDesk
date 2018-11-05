@@ -78,4 +78,7 @@
 #define kWindowAlpha @"kWindowAlpha" //窗口透明度
 #define kAppLoadTimes @"kAppLoadTimes" //app启动次数
 
+
+#import "Common.h"
+
 #endif /* PrefixHeader_pch */

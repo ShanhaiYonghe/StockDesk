@@ -62,14 +62,27 @@ static NSString *notifyKey = @"notifyKey";
     [[NSUserDefaults standardUserDefaults] setObject:@[ ] forKey:stockKey];
 }
 
-
 +(BOOL)saveNotify:(NSDictionary *)dict{
     if (!dict) {
         return NO;
     }
-    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey]];
-    [mutableDict addEntriesFromDictionary:dict];
-    [[NSUserDefaults standardUserDefaults]setObject:mutableDict forKey:notifyKey];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
+    if (!arr) {
+        arr = [NSMutableArray new];
+    }
+    if (!arr.count) {
+        [arr addObject:dict];
+        [[NSUserDefaults standardUserDefaults]setObject:arr forKey:notifyKey];
+    }
+    for (NSDictionary *dic in arr) {
+        if ([dic[@"code"] isEqual:dict[@"code"]] && [dic[@"price"] isEqual:dict[@"price"]] && [dic[@"priceType"] isEqual:dict[@"priceType"]]) {
+            break;
+        }else{
+            [arr addObject:dict];
+            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:notifyKey];
+            break;
+        }
+    }
     return YES;
 }
 
@@ -77,18 +90,32 @@ static NSString *notifyKey = @"notifyKey";
     if (!stockCode.length) {
         return NO;
     }
-    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey]];
-    [mutableDict removeObjectForKey:stockCode];
-    [[NSUserDefaults standardUserDefaults]setObject:mutableDict forKey:notifyKey];
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
+    NSDictionary *dict = @{};
+    for (NSDictionary *dic in mutableArr) {
+        if ([dic[@"code"] isEqualToString:stockCode]) {
+            dict = dic;
+            break;
+        }
+    }
+    [mutableArr removeObject:dict];
+    [[NSUserDefaults standardUserDefaults]setObject:mutableArr forKey:notifyKey];
     return YES;
 }
 
-+(id)getPriceByCode:(NSString *)stockCode{
++(NSDictionary *)getNotifyByCode:(NSString *)stockCode{
     if (!stockCode.length) {
         return nil;
     }
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:notifyKey];
-    return [dict objectForKey:stockCode];
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
+    for (NSDictionary *dic in mutableArr) {
+        if ([dic[@"code"] isEqualToString:stockCode]) {
+            return dic;
+        }
+    }
+    return nil;
 }
+
+
 
 @end

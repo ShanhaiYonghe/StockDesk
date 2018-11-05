@@ -53,7 +53,7 @@ static NSString *kStockTimer = @"kStockTimer";
     [[WSTimer sharedInstance] cancelTimer:kStockTimer];
     
     @WeakSelf(self);
-    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:NO action:^{
+    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:YES action:^{
         Log(@"kStockTimer");
         [StockModel getData:^(NSArray *dataList) {
             if (dataList.count == 0 && weakSelf.dataSourceArray.count == 0) {
@@ -64,18 +64,20 @@ static NSString *kStockTimer = @"kStockTimer";
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
                 
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
-//                for (StockModel *sm in dataList) {
-//                    id obj = [Cache getPriceByCode:sm.code];
-//                    if (obj) {
-//                        double price = [obj doubleValue];
-//                        double delta = fabs(sm.nowPrice - price);
-//                        if (delta > 0.2) {
-//
-//                        }
-//                    }
-//
-//                }
-                
+                for (StockModel *sm in dataList) {
+                    NSDictionary *dic = [Cache getNotifyByCode:sm.code];
+                    if (dic) {
+                        double price = [dic[@"price"] doubleValue];
+                        PriceType type = [dic[@"priceType"] integerValue];
+                        if (type==PriceTypeHigh && sm.nowPrice >= price) { //高于
+                            [weakSelf sendNotify:sm price:price type:type];
+                            [Cache delNotifyByCode:sm.code];
+                        }else if(type==PriceTypeLow && sm.nowPrice <= price){ //低于
+                            [weakSelf sendNotify:sm price:price type:type];
+                            [Cache delNotifyByCode:sm.code];
+                        }
+                    }
+                }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
@@ -83,6 +85,18 @@ static NSString *kStockTimer = @"kStockTimer";
         }];
         
     } queue:nil];
+}
+
+- (void)sendNotify:(StockModel *)sm price:(double)price type:(PriceType)type{
+     NSUserNotification *localNotify = [[NSUserNotification alloc] init];
+    localNotify.title = SF(@"%@",sm.name); //标题
+    localNotify.subtitle = SF(@"%@",sm.codeDes);//副标题
+     //    localNotify.contentImage = [NSImage imageNamed: @"swift"];//显示在弹窗右边的提示。
+     localNotify.informativeText = SF(@"价格已经%@%.2f",type==PriceTypeHigh?@"高于":@"低于",price);
+     localNotify.soundName = NSUserNotificationDefaultSoundName;
+     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
+     //设置通知的代理
+//     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 }
 
 #pragma mark - private

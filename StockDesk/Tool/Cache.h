@@ -27,10 +27,19 @@
 
 #pragma mark notify
 
+/**
+ @[
+     @{@"code":@"sh253615",
+          @"price":@(float),
+          @"PriceType":@(PriceType) //PriceTypeHigh means Above,PriceTypeLow means Below
+     },
+    ...
+]
+ */
 +(BOOL)saveNotify:(NSDictionary *)dict;
 
 +(BOOL)delNotifyByCode:(NSString*)stockCode;
 
-+(id)getPriceByCode:(NSString*)stockCode;
++(NSDictionary *)getNotifyByCode:(NSString *)stockCode;
 
 @end

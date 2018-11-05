@@ -283,23 +283,6 @@
 
 #pragma mark 添加通知
 - (void)addNotifi:(id)sender{
-    /**
-     
-//    NSButton *b = sender;
-//    [Cache delStock:b.tag];
-//    [self getData];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
-    NSUserNotification *localNotify = [[NSUserNotification alloc] init];
-    localNotify.title = @"title";//标题
-    localNotify.subtitle = @"subtitle";//副标题
-//    localNotify.contentImage = [NSImage imageNamed: @"swift"];//显示在弹窗右边的提示。
-    localNotify.informativeText = @"body message";
-    localNotify.soundName = NSUserNotificationDefaultSoundName;
-    
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
-    //设置通知的代理
-    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-    */
     
     NSButton *b = sender;
     Log(@"%ld",b.tag);
@@ -309,6 +292,7 @@
     NotifyVC *vc =  [sb instantiateControllerWithIdentifier:@"notifyVC"];
     vc.title = SF(@"%@(%@)",sm.name,sm.codeDes);
     vc.price = sm.nowPrice;
+    vc.stockCode = sm.code;
     [self presentViewControllerAsModalWindow:vc];
 }
 
