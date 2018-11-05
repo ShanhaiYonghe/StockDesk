@@ -11,6 +11,7 @@
 #import "WSTimer.h"
 #import "StockModel.h"
 #import "StockCache.h"
+#import "Notify.h"
 
 @interface ViewController()<NSTableViewDelegate,NSTableViewDataSource>
 
@@ -50,7 +51,7 @@ static NSString *kStockTimer = @"kStockTimer";
     [[WSTimer sharedInstance] cancelTimer:kStockTimer];
     
     @WeakSelf(self);
-    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:NO action:^{
+    [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:YES action:^{
         Log(@"kStockTimer");
         [StockModel getData:^(NSArray *dataList) {
             if (dataList.count == 0 && weakSelf.dataSourceArray.count == 0) {
@@ -62,21 +63,17 @@ static NSString *kStockTimer = @"kStockTimer";
                 
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
                 for (StockModel *sm in dataList) {
-//                    NSDictionary *dic = [Cache getNotifyByCode:sm.code];
-//                    if (dic) {
-//                        double price = [dic[@"price"] doubleValue];
-//                        PriceType type = [dic[@"priceType"] integerValue];
-//                        if (type==PriceTypeHigh && sm.nowPrice >= price) { //高于
-//                            [weakSelf sendNotify:sm price:price type:type];
-//                            [Cache delNotifyByCode:sm.code];
-//                        }else if(type==PriceTypeLow && sm.nowPrice <= price){ //低于
-//                            [weakSelf sendNotify:sm price:price type:type];
-//                            [Cache delNotifyByCode:sm.code];
-//                        }
-//                    }
-                    //SF(@"%@",sm.name); //标题
-                    //SF(@"%@",sm.codeDes);//副标题
-                    //SF(@"价格已经%@%.2f",type==PriceTypeHigh?@"高于":@"低于",price);
+                    NSArray *arr = [Notify getNotifyByCode:sm.code];
+                    for (NSDictionary *dic in arr) {
+                        double price = [dic[keyNotifyPrice] doubleValue];
+                        double priceType = [dic[keyNotifyPriceType] integerValue];
+                        [Notify delNotify:dic];
+                        if (priceType == PriceTypeHigh && sm.nowPrice >= price) {
+                            [Notify sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经高于%.2f",price) delegate:weakSelf];
+                        }else if (priceType == PriceTypeLow && sm.nowPrice <= price){
+                            [Notify sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经低于%.2f",price) delegate:weakSelf];
+                        }
+                    }
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{

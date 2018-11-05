@@ -16,6 +16,12 @@ typedef enum : NSUInteger {
 } PriceType;
 
 static NSString *stockKey = @"stockKey";
+
+//notify keys
 static NSString *notifyKey = @"notifyKey";
+
+static NSString *keyNotifyCode = @"keyNotifyCode";
+static NSString *keyNotifyPrice = @"keyNotifyPrice";
+static NSString *keyNotifyPriceType = @"keyNotifyPriceType";
 
 #endif /* Common_h */

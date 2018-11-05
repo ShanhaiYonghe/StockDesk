@@ -63,6 +63,8 @@
 + (void)getData:(ResultBlock)resultBlock{
     NSString *stockListStr = [[StockCache getStocks] componentsJoinedByString:@","];
     //限制时间段 ***区分第一次和循环获取 TODO
+    
+    
     Log(@"%@",stockListStr);
     
     if (stockListStr.length<4) {

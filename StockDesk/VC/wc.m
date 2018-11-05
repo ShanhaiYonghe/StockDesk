@@ -19,16 +19,14 @@
     [super windowWillLoad];
     
 //    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:kAppLoadTimes]; //测试用
-    
+//    [[NSUserDefaults standardUserDefaults]setObject:@[] forKey:notifyKey]; //测试用
     NSInteger appLoadTimes = [[NSUserDefaults standardUserDefaults]integerForKey:kAppLoadTimes];
     if (appLoadTimes == 0) {
         Log(@"app load times:%ld",appLoadTimes);
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:kWindowFront];
         [[NSUserDefaults standardUserDefaults]setFloat:0.8 forKey:kWindowAlpha];
     }
-    [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];
-    
-//    [Cache delAllStocks]; //测试用
+    [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];    
 }
 
 - (void)windowDidLoad {

@@ -43,9 +43,9 @@
     double p = [_priceTf.stringValue doubleValue];
     
     BOOL result = [Notify saveNotify:@{
-                        @"code":self.stockCode?:@"",
-                        @"price":@(p),
-                        @"priceType":@(_priceType)
+                        keyNotifyCode:self.stockCode?:@"",
+                        keyNotifyPrice:@(p),
+                        keyNotifyPriceType:@(_priceType)
                         }];
     
     NSAlert *alert = [[NSAlert alloc]init];
