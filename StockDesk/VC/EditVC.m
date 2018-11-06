@@ -22,10 +22,6 @@
 @property (weak) IBOutlet NSTextField *tipLabel;
 
 @property (nonatomic,strong)NSMutableArray *dataSourceArray;
-
-/** gb_$ndx 纳斯达克100  gb_$inx标普指数 gb_$dji道琼斯 gb_ixic纳斯达克 gb_baba阿里巴巴(小写)
- sz399001 深证成指；sh000001 上证指数 ；sz399006 创业板指 ；hkHSI 恒生指数 rt_hkHSI
- */
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,strong) NSArray *typeArr;
 
@@ -73,6 +69,7 @@
     }else{
         [_dataSourceArray removeAllObjects];
         [_tableView reloadData];
+        [self updateZhishu];
     }
 }
 
@@ -115,6 +112,7 @@
     }
 }
 
+#pragma mark add stock
 - (IBAction)addClick:(id)sender {
     //添加
     NSString *code = [_stockTF.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -128,11 +126,11 @@
         @WeakSelf(self);
         [StockModel addStock:_type code:code return:^(BOOL flag) {
             if (flag) {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
                 [weakSelf loadStockData];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.tipLabel.stringValue = flag?@"添加成功！":@"添加失败，请确认股票代码。";
+                weakSelf.tipLabel.stringValue = flag?@"添加成功！":@"添加失败，请确认股票代码 和 股票板块。";
             });
         }];
     }
@@ -256,7 +254,7 @@
         }
         [StockCache delAllStocks];
         [StockCache saveStocks:arr];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
         
         [_tableView reloadData];
         _dragStockModel = nil;
@@ -273,7 +271,7 @@
     [StockCache delStockByCode:sm.code];
     
     [self loadStockData];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
 }
 
 #pragma mark 添加通知
@@ -283,9 +281,7 @@
     
     NSStoryboard *sb = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     NotifyVC *vc =  [sb instantiateControllerWithIdentifier:@"notifyVC"];
-    vc.title = SF(@"%@(%@)",sm.name,sm.codeDes);
-    vc.price = sm.nowPrice;
-    vc.stockCode = sm.code;
+    vc.sm = sm;
     [self presentViewControllerAsModalWindow:vc];
     
 }
@@ -322,7 +318,7 @@
     }
     
     [self loadStockData];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateStock" object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
 }
 
 @end

@@ -20,8 +20,13 @@ static NSString *stockKey = @"stockKey";
 //notify keys
 static NSString *notifyKey = @"notifyKey";
 
+static NSString *keyNotifyName = @"keyNotifyName";
 static NSString *keyNotifyCode = @"keyNotifyCode";
+static NSString *keyNotifyCodeDes = @"keyNotifyCodeDes";
 static NSString *keyNotifyPrice = @"keyNotifyPrice";
 static NSString *keyNotifyPriceType = @"keyNotifyPriceType";
+
+//notifications
+static NSString *keyNotificationUpdateStock = @"keyNotificationUpdateStock";//更新显示桌面股票
 
 #endif /* Common_h */

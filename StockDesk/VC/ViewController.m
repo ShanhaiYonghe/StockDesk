@@ -11,17 +11,21 @@
 #import "WSTimer.h"
 #import "StockModel.h"
 #import "StockCache.h"
-#import "Notify.h"
+#import "NotifyCache.h"
 
-@interface ViewController()<NSTableViewDelegate,NSTableViewDataSource>
+@interface ViewController()<NSTableViewDelegate,NSTableViewDataSource,NSUserNotificationCenterDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (nonatomic,strong)NSMutableArray *dataSourceArray;
 @property (nonatomic,strong) StockModel *dragStockModel;
 
+@property (nonatomic,assign) BOOL repeat;
+@property (weak) IBOutlet NSButton *addNewStockBtn;
+
 @end
 
 static NSString *kStockTimer = @"kStockTimer";
+static NSString *kDateTimer = @"kDateTimer";
 
 @implementation ViewController
 
@@ -31,7 +35,7 @@ static NSString *kStockTimer = @"kStockTimer";
     float v = [[NSUserDefaults standardUserDefaults]floatForKey:kWindowAlpha];
     self.view.layer.backgroundColor = NSColorFromHEX(0xDDDDDD, v).CGColor;
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateData) name:@"updateStock" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateData) name:keyNotificationUpdateStock object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateBgAlpha) name:@"updateBgAlpha" object:nil];
     
     _dataSourceArray = [NSMutableArray new];
@@ -40,6 +44,12 @@ static NSString *kStockTimer = @"kStockTimer";
     _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     
     [self updateData];
+    
+    //获取时间
+//    [[WSTimer sharedInstance]scheduledGCDTimer:kDateTimer interval:1 repeat:YES action:^{
+//
+//    } queue:nil];
+//
 }
 
 - (void)updateBgAlpha{
@@ -49,32 +59,33 @@ static NSString *kStockTimer = @"kStockTimer";
 
 - (void)updateData{
     [[WSTimer sharedInstance] cancelTimer:kStockTimer];
-    
     @WeakSelf(self);
     [[WSTimer sharedInstance]scheduledGCDTimer:kStockTimer interval:1 repeat:YES action:^{
-        Log(@"kStockTimer");
+//        Log(@"kStockTimer");
         [StockModel getData:^(NSArray *dataList) {
-            if (dataList.count == 0 && weakSelf.dataSourceArray.count == 0) {
-                [[WSTimer sharedInstance] cancelTimer:kStockTimer];
-            }
             if (dataList.count) {
                 [weakSelf.dataSourceArray removeAllObjects];
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
                 
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
                 for (StockModel *sm in dataList) {
-                    NSArray *arr = [Notify getNotifyByCode:sm.code];
+                    NSArray *arr = [NotifyCache getNotifyByCode:sm.code];
                     for (NSDictionary *dic in arr) {
                         double price = [dic[keyNotifyPrice] doubleValue];
                         double priceType = [dic[keyNotifyPriceType] integerValue];
-                        [Notify delNotify:dic];
                         if (priceType == PriceTypeHigh && sm.nowPrice >= price) {
-                            [Notify sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经高于%.2f",price) delegate:weakSelf];
+                            [NotifyCache delNotify:dic];
+                            [NotifyCache sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经高于%.2f",price) delegate:weakSelf];
                         }else if (priceType == PriceTypeLow && sm.nowPrice <= price){
-                            [Notify sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经低于%.2f",price) delegate:weakSelf];
+                            [NotifyCache delNotify:dic];
+                            [NotifyCache sendNotifyTitle:sm.name subtitle:sm.codeDes informativeText:SF(@"价格已经低于%.2f",price) delegate:weakSelf];
                         }
                     }
                 }
+            }
+            if (dataList.count == 0) {
+                [weakSelf.dataSourceArray removeAllObjects];
+                [[WSTimer sharedInstance] cancelTimer:kStockTimer];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
@@ -86,6 +97,7 @@ static NSString *kStockTimer = @"kStockTimer";
 
 #pragma mark - tableView
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
+    _addNewStockBtn.hidden = _dataSourceArray.count>0?YES:NO;
     return _dataSourceArray.count;
 }
 
@@ -198,6 +210,11 @@ static NSString *kStockTimer = @"kStockTimer";
         [_tableView deselectAll:nil];
     }
     return YES;
+}
+
+#pragma mark - NSUserNotificationCenterDelegate
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
+    return YES;//强制弹框
 }
 
 - (void)setRepresentedObject:(id)representedObject {

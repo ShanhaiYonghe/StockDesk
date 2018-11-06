@@ -1,41 +1,45 @@
 //
-//  Notify.m
+//  NotifyCache.m
 //  StockDesk
 //
-//  Created by 饶首建 on 2018/11/5.
+//  Created by 饶首建 on 2018/11/6.
 //  Copyright © 2018 com.wings. All rights reserved.
 //
 
-#import "Notify.h"
+#import "NotifyCache.h"
 #import "StockModel.h"
 
-@implementation Notify
+@implementation NotifyCache
 
 +(BOOL)saveNotify:(NSDictionary *)notify{
     if (!notify) {
         return NO;
     }
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
-
+    
     if (arr.count) {
+        BOOL isExist = NO;
         for (NSDictionary *dic in arr) {
-            if ([dic[@"code"] isEqual:notify[@"code"]] && [dic[@"price"] isEqual:notify[@"price"]] && [dic[@"priceType"] isEqual:notify[@"priceType"]]) {
+            if ([dic[keyNotifyCode] isEqual:notify[keyNotifyCode]] && [dic[keyNotifyPrice] isEqual:notify[keyNotifyPrice]] && [dic[keyNotifyPriceType] isEqual:notify[keyNotifyPriceType]]) {
                 Log(@"same notify exist");
-                break;
-            }else{
-                [arr addObject:notify];
-                [[NSUserDefaults standardUserDefaults]setObject:arr forKey:notifyKey];
-                Log(@"save notify %@",notify);
+                isExist = YES;
                 break;
             }
+        }
+        if(!isExist){
+            [arr addObject:notify];
+            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:notifyKey];
+            Log(@"save notify %@",notify);
+            return YES;
         }
     }else{
         [arr addObject:notify];
         [[NSUserDefaults standardUserDefaults]setObject:arr forKey:notifyKey];
         Log(@"save notify %@",notify);
+        return YES;
     }
     
-    return YES;
+    return NO;
 }
 
 +(BOOL)delNotify:(NSDictionary *)notify{
@@ -45,7 +49,7 @@
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
     NSDictionary *removeDic = @{};
     for (NSDictionary *dic in mutableArr) {
-        if ([dic[@"code"] isEqual:notify[@"code"]] && [dic[@"price"] isEqual:notify[@"price"]] && [dic[@"priceType"] isEqual:notify[@"priceType"]]) {
+        if ([dic[keyNotifyCode] isEqual:notify[keyNotifyCode]] && [dic[keyNotifyPrice] isEqual:notify[keyNotifyPrice]] && [dic[keyNotifyPriceType] isEqual:notify[keyNotifyPriceType]]) {
             removeDic = dic;
             break;
         }
@@ -62,11 +66,15 @@
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
     NSMutableArray *tmpArr = [NSMutableArray new];
     for (NSDictionary *dic in mutableArr) {
-        if ([dic[@"code"] isEqual:stockCode]) {
+        if ([dic[keyNotifyCode] isEqual:stockCode]) {
             [tmpArr addObject:dic];
         }
     }
     return tmpArr;
+}
+
++(NSArray *)getAllNotify{
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey];
 }
 
 + (void)sendNotifyTitle:(NSString *)title subtitle:(NSString*)subtitle informativeText:(NSString *)informativeText delegate:(id)delegate{

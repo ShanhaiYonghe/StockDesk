@@ -8,12 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "StockModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifyVC : NSViewController
 
 @property (nonatomic,assign) double price;
-@property (nonatomic,copy) NSString *stockCode;
+@property (nonatomic,strong) StockModel *sm;
 @end
 
 NS_ASSUME_NONNULL_END

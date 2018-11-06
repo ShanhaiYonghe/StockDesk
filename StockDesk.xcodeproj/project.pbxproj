@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		01366DA1217DD0D000B1FB51 /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01366DA0217DD0D000B1FB51 /* SetVC.m */; };
-		0137D1C3219029180098733E /* Notify.m in Sources */ = {isa = PBXBuildFile; fileRef = 0137D1C2219029180098733E /* Notify.m */; };
 		0137D1C621902A180098733E /* StockCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0137D1C521902A180098733E /* StockCache.m */; };
 		01395AFB218B086200F95913 /* NotifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01395AFA218B086200F95913 /* NotifyVC.m */; };
+		01B0F6FA2191793500576718 /* NotifyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B0F6F92191793500576718 /* NotifyEditVC.m */; };
+		01B0F6FD21917DE700576718 /* NotifyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B0F6FC21917DE700576718 /* NotifyCache.m */; };
 		01BFAEA5214F956C000DBB7F /* wc.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEA4214F956C000DBB7F /* wc.m */; };
 		01BFAEAE2150F418000DBB7F /* WSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEAD2150F418000DBB7F /* WSTimer.m */; };
 		01BFAEB42151EEBB000DBB7F /* StockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEB32151EEBB000DBB7F /* StockModel.m */; };
@@ -25,14 +26,16 @@
 /* Begin PBXFileReference section */
 		01366D9F217DD0D000B1FB51 /* SetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		01366DA0217DD0D000B1FB51 /* SetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
-		0137D1C1219029180098733E /* Notify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
-		0137D1C2219029180098733E /* Notify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Notify.m; sourceTree = "<group>"; };
 		0137D1C421902A180098733E /* StockCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockCache.h; sourceTree = "<group>"; };
 		0137D1C521902A180098733E /* StockCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockCache.m; sourceTree = "<group>"; };
 		01395AF9218B086200F95913 /* NotifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyVC.h; sourceTree = "<group>"; };
 		01395AFA218B086200F95913 /* NotifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyVC.m; sourceTree = "<group>"; };
 		01395AFC218FF7AD00F95913 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		0182A25B217D6AE00056BB21 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		01B0F6F82191793500576718 /* NotifyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyEditVC.h; sourceTree = "<group>"; };
+		01B0F6F92191793500576718 /* NotifyEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyEditVC.m; sourceTree = "<group>"; };
+		01B0F6FB21917DE700576718 /* NotifyCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyCache.h; sourceTree = "<group>"; };
+		01B0F6FC21917DE700576718 /* NotifyCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyCache.m; sourceTree = "<group>"; };
 		01BFAEA3214F956C000DBB7F /* wc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wc.h; sourceTree = "<group>"; };
 		01BFAEA4214F956C000DBB7F /* wc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wc.m; sourceTree = "<group>"; };
 		01BFAEAC2150F418000DBB7F /* WSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTimer.h; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 				01366DA0217DD0D000B1FB51 /* SetVC.m */,
 				01395AF9218B086200F95913 /* NotifyVC.h */,
 				01395AFA218B086200F95913 /* NotifyVC.m */,
+				01B0F6F82191793500576718 /* NotifyEditVC.h */,
+				01B0F6F92191793500576718 /* NotifyEditVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -96,10 +101,10 @@
 				01395AFC218FF7AD00F95913 /* Common.h */,
 				01BFAEAC2150F418000DBB7F /* WSTimer.h */,
 				01BFAEAD2150F418000DBB7F /* WSTimer.m */,
-				0137D1C1219029180098733E /* Notify.h */,
-				0137D1C2219029180098733E /* Notify.m */,
 				0137D1C421902A180098733E /* StockCache.h */,
 				0137D1C521902A180098733E /* StockCache.m */,
+				01B0F6FB21917DE700576718 /* NotifyCache.h */,
+				01B0F6FC21917DE700576718 /* NotifyCache.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -170,6 +175,9 @@
 					01F49FD8214F7F0D007E942F = {
 						CreatedOnToolsVersion = 9.4;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -214,6 +222,7 @@
 			files = (
 				01F49FE1214F7F0D007E942F /* ViewController.m in Sources */,
 				01BFAEA5214F956C000DBB7F /* wc.m in Sources */,
+				01B0F6FD21917DE700576718 /* NotifyCache.m in Sources */,
 				01366DA1217DD0D000B1FB51 /* SetVC.m in Sources */,
 				01C305A2215383EB0037A01E /* EditVC.m in Sources */,
 				01F49FE9214F7F0F007E942F /* main.m in Sources */,
@@ -221,7 +230,7 @@
 				0137D1C621902A180098733E /* StockCache.m in Sources */,
 				01BFAEB42151EEBB000DBB7F /* StockModel.m in Sources */,
 				01BFAEAE2150F418000DBB7F /* WSTimer.m in Sources */,
-				0137D1C3219029180098733E /* Notify.m in Sources */,
+				01B0F6FA2191793500576718 /* NotifyEditVC.m in Sources */,
 				01395AFB218B086200F95913 /* NotifyVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

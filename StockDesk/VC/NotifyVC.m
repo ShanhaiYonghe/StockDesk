@@ -7,7 +7,7 @@
 //
 
 #import "NotifyVC.h"
-#import "Notify.h"
+#import "NotifyCache.h"
 
 @interface NotifyVC ()
 
@@ -21,9 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _priceTf.stringValue = SF(@"%.2f",_price);
-    _newPrice = _price;
+    self.title = SF(@"%@(%@)",_sm.name,_sm.codeDes);
+    _priceTf.stringValue = SF(@"%.2f",_sm.nowPrice);
+    _newPrice = _sm.nowPrice;
     
 }
 
@@ -42,10 +42,12 @@
 - (IBAction)addAction:(id)sender {
     double p = [_priceTf.stringValue doubleValue];
     
-    BOOL result = [Notify saveNotify:@{
-                        keyNotifyCode:self.stockCode?:@"",
-                        keyNotifyPrice:@(p),
-                        keyNotifyPriceType:@(_priceType)
+    BOOL result = [NotifyCache saveNotify:@{
+                                keyNotifyCode           :   _sm.code?:@"",
+                                keyNotifyCodeDes    :   _sm.codeDes?:@"",
+                                keyNotifyName          :   _sm.name?:@"",
+                                keyNotifyPrice           :   @(p),
+                                keyNotifyPriceType   :   @(_priceType)
                         }];
     
     NSAlert *alert = [[NSAlert alloc]init];
@@ -55,7 +57,7 @@
             [self dismissController:self];
         }];
     }else{
-        alert.messageText = @"添加失败";
+        alert.messageText = @"已添加相同的通知";
         [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             
         }];
