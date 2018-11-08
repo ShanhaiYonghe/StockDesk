@@ -16,16 +16,17 @@
 @interface ViewController()<NSTableViewDelegate,NSTableViewDataSource,NSUserNotificationCenterDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
+
 @property (nonatomic,strong)NSMutableArray *dataSourceArray;
 @property (nonatomic,strong) StockModel *dragStockModel;
 
 @property (nonatomic,assign) BOOL repeat;
+
 @property (weak) IBOutlet NSButton *addNewStockBtn;
 
 @end
 
 static NSString *kStockTimer = @"kStockTimer";
-static NSString *kDateTimer = @"kDateTimer";
 
 @implementation ViewController
 
@@ -44,12 +45,7 @@ static NSString *kDateTimer = @"kDateTimer";
     _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     
     [self updateData];
-    
-    //获取时间
-//    [[WSTimer sharedInstance]scheduledGCDTimer:kDateTimer interval:1 repeat:YES action:^{
-//
-//    } queue:nil];
-//
+
 }
 
 - (void)updateBgAlpha{
@@ -164,6 +160,7 @@ static NSString *kDateTimer = @"kDateTimer";
 #pragma mark - drag & drop
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation{
     if (dropOperation == NSTableViewDropAbove) {
+        [[WSTimer sharedInstance] cancelTimer:kStockTimer];
         return NSDragOperationMove;
     }
     return NSDragOperationNone;
@@ -183,6 +180,7 @@ static NSString *kDateTimer = @"kDateTimer";
         StockModel *sm = _dataSourceArray[row];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
+            Log(@"1 - %ld / %ld",row,_dataSourceArray.count);
             [_dataSourceArray insertObject:_dragStockModel atIndex: row];
             flag = YES;
         }
@@ -191,7 +189,12 @@ static NSString *kDateTimer = @"kDateTimer";
         StockModel *sm = _dataSourceArray[row-1];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
-            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            Log(@"2 - %ld / %ld",row-1,_dataSourceArray.count);
+            if (_dataSourceArray.count == row-1) {
+                [_dataSourceArray addObject:_dragStockModel];
+            }else{
+                [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            }
             flag = YES;
         }
     }
@@ -209,6 +212,7 @@ static NSString *kDateTimer = @"kDateTimer";
         _dragStockModel = nil;
         [_tableView deselectAll:nil];
     }
+    [self updateData];
     return YES;
 }
 
