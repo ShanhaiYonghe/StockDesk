@@ -62,9 +62,6 @@
 
 + (void)getData:(ResultBlock)resultBlock{
     NSString *stockListStr = [[StockCache getStocks] componentsJoinedByString:@","];
-    //限制时间段 ***区分第一次和循环获取 TODO
-    
-//    Log(@"%@",stockListStr);
     
     if (stockListStr.length<4) {
         resultBlock(nil);
@@ -93,7 +90,9 @@
             NSString *type = [stock substringWithRange:range2];
             
             StockModel *sm = [[StockModel alloc]initWith:arr type:type];
+            Log(@"getData1:");
             NSString * code = [[StockCache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
+            Log(@"getData2:%@",code);
             sm.code = code;
 
             NSString *codeDes = [code copy];

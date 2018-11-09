@@ -168,28 +168,62 @@ static NSString *kStockTimer = @"kStockTimer";
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard{
     [pboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:self];//定义存在剪切板的哪里，不加这句代码貌似拖拽不起作用
+    Log(@"writeRowsWithIndexes1:%@",rowIndexes);
     NSArray *array = [_dataSourceArray objectsAtIndexes:rowIndexes];//拖拽的列表数组
+    Log(@"writeRowsWithIndexes2:%@",rowIndexes);
     _dragStockModel = array.firstObject;
     return YES;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation{
+    Log(@"acceptDrop1:%ld-%@",_dataSourceArray.count,_dragStockModel);
     NSInteger idx = [_dataSourceArray indexOfObject:_dragStockModel];//拖动的obj
+    Log(@"acceptDrop2:%ld-%@",_dataSourceArray.count,_dragStockModel);
     BOOL flag = NO;
+    
     if (idx > row) { //下面往上面移动
+        if (_dataSourceArray.count <= row) {
+            row = _dataSourceArray.count -1;
+        }
+        Log(@"0 - %ld / %ld",row,_dataSourceArray.count);
         StockModel *sm = _dataSourceArray[row];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
             Log(@"1 - %ld / %ld",row,_dataSourceArray.count);
-            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            
+            StockModel *tmpSM;
+            for (StockModel *ss in _dataSourceArray) {
+                if ([ss.code isEqual:_dragStockModel.code]) {
+                    tmpSM = ss;
+                    break;
+                }
+            }
+            [_dataSourceArray removeObject:tmpSM];
+            
+            if (_dataSourceArray.count == row) {
+                [_dataSourceArray addObject:_dragStockModel];
+            }else{
+                [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            }
             flag = YES;
         }
     }
     if (idx < row) {//上面往下面移动
+        Log(@"2 - %ld / %ld",row-1,_dataSourceArray.count);
         StockModel *sm = _dataSourceArray[row-1];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
-            Log(@"2 - %ld / %ld",row-1,_dataSourceArray.count);
+            Log(@"3 - %ld / %ld",row-1,_dataSourceArray.count);
+            
+            StockModel *tmpSM;
+            for (StockModel *ss in _dataSourceArray) {
+                if ([ss.code isEqual:_dragStockModel.code]) {
+                    tmpSM = ss;
+                    break;
+                }
+            }
+            [_dataSourceArray removeObject:tmpSM];
+            
             if (_dataSourceArray.count == row-1) {
                 [_dataSourceArray addObject:_dragStockModel];
             }else{
