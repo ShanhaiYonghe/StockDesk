@@ -200,12 +200,14 @@ static NSString *kStockTimer = @"kStockTimer";
             }
             [_dataSourceArray removeObject:tmpSM];
             
-            if (_dataSourceArray.count == row) {
-                [_dataSourceArray addObject:_dragStockModel];
-            }else{
-                [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            if (!_dragStockModel) {
+                if (_dataSourceArray.count == row) {
+                    [_dataSourceArray addObject:_dragStockModel];
+                }else{
+                    [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+                }
+                flag = YES;
             }
-            flag = YES;
         }
     }
     if (idx < row) {//上面往下面移动
@@ -224,12 +226,14 @@ static NSString *kStockTimer = @"kStockTimer";
             }
             [_dataSourceArray removeObject:tmpSM];
             
-            if (_dataSourceArray.count == row-1) {
-                [_dataSourceArray addObject:_dragStockModel];
-            }else{
-                [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
-            }
-            flag = YES;
+            if (!_dragStockModel) {
+                if (_dataSourceArray.count == row-1) {
+                    [_dataSourceArray addObject:_dragStockModel];
+                }else{
+                    [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+                }
+                flag = YES;
+            }            
         }
     }
     if (flag) {

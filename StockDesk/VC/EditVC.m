@@ -235,16 +235,20 @@
         StockModel *sm = _dataSourceArray[row];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
-            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
-            flag = YES;
+            if (!_dragStockModel) {
+                [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+                flag = YES;
+            }
         }
     }
     if (idx < row) {//上面往下面移动
         StockModel *sm = _dataSourceArray[row-1];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
-            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
-            flag = YES;
+            if (!_dragStockModel) {
+                [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+                flag = YES;
+            }
         }
     }
     if (flag) {
