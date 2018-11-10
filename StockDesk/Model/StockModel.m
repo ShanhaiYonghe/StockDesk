@@ -68,6 +68,7 @@
     }
     
     NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",stockListStr];
+//    Log(@"url:%@",url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -90,9 +91,9 @@
             NSString *type = [stock substringWithRange:range2];
             
             StockModel *sm = [[StockModel alloc]initWith:arr type:type];
-            Log(@"getData1:");
+//            Log(@"getData1:");
             NSString * code = [[StockCache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
-            Log(@"getData2:%@",code);
+//            Log(@"getData2:%@",code);
             sm.code = code;
 
             NSString *codeDes = [code copy];

@@ -62,7 +62,6 @@ static NSString *kStockTimer = @"kStockTimer";
             if (dataList.count) {
                 [weakSelf.dataSourceArray removeAllObjects];
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
-                
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
                 for (StockModel *sm in dataList) {
                     NSArray *arr = [NotifyCache getNotifyByCode:sm.code];
@@ -158,9 +157,10 @@ static NSString *kStockTimer = @"kStockTimer";
 }
 
 #pragma mark - drag & drop
+
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation{
     if (dropOperation == NSTableViewDropAbove) {
-        [[WSTimer sharedInstance] cancelTimer:kStockTimer];
+        [[WSTimer sharedInstance] cancelTimer:kStockTimer];//拖动的时候取消timer
         return NSDragOperationMove;
     }
     return NSDragOperationNone;
@@ -168,75 +168,62 @@ static NSString *kStockTimer = @"kStockTimer";
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard{
     [pboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:self];//定义存在剪切板的哪里，不加这句代码貌似拖拽不起作用
-    Log(@"writeRowsWithIndexes1:%@",rowIndexes);
     NSArray *array = [_dataSourceArray objectsAtIndexes:rowIndexes];//拖拽的列表数组
-    Log(@"writeRowsWithIndexes2:%@",rowIndexes);
     _dragStockModel = array.firstObject;
     return YES;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation{
-    Log(@"acceptDrop1:%ld-%@",_dataSourceArray.count,_dragStockModel);
-    NSInteger idx = [_dataSourceArray indexOfObject:_dragStockModel];//拖动的obj
-    Log(@"acceptDrop2:%ld-%@",_dataSourceArray.count,_dragStockModel);
+    if (!_dragStockModel) {
+        return NO;
+    }
+    NSInteger idx = 0;
+    for (NSInteger i=0; i<_dataSourceArray.count; i++) {
+        StockModel *sm = _dataSourceArray[i];
+        if ([_dragStockModel.code isEqual:sm.code]) {
+            idx = i;
+            break;
+        }
+    }
+    
     BOOL flag = NO;
     
-    if (idx > row) { //下面往上面移动
-        if (_dataSourceArray.count <= row) {
-            row = _dataSourceArray.count -1;
-        }
-        Log(@"0 - %ld / %ld",row,_dataSourceArray.count);
-        StockModel *sm = _dataSourceArray[row];//被替换的obj
-        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
-            [_dataSourceArray removeObject:_dragStockModel];
-            Log(@"1 - %ld / %ld",row,_dataSourceArray.count);
-            
-            StockModel *tmpSM;
-            for (StockModel *ss in _dataSourceArray) {
-                if ([ss.code isEqual:_dragStockModel.code]) {
-                    tmpSM = ss;
-                    break;
-                }
-            }
-            [_dataSourceArray removeObject:tmpSM];
-            
-            if (!_dragStockModel) {
-                if (_dataSourceArray.count == row) {
-                    [_dataSourceArray addObject:_dragStockModel];
-                }else{
-                    [_dataSourceArray insertObject:_dragStockModel atIndex: row];
-                }
-                flag = YES;
-            }
-        }
-    }
-    if (idx < row) {//上面往下面移动
-        Log(@"2 - %ld / %ld",row-1,_dataSourceArray.count);
+    if (idx < row) {//上->下
         StockModel *sm = _dataSourceArray[row-1];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
-            [_dataSourceArray removeObject:_dragStockModel];
-            Log(@"3 - %ld / %ld",row-1,_dataSourceArray.count);
-            
-            StockModel *tmpSM;
-            for (StockModel *ss in _dataSourceArray) {
-                if ([ss.code isEqual:_dragStockModel.code]) {
-                    tmpSM = ss;
+            Log(@"1 - remove0:%ld",_dataSourceArray.count);
+            StockModel *rsm;
+            for (StockModel *sm in _dataSourceArray) {
+                if ([sm.code isEqual:_dragStockModel.code]) {
+                    rsm = sm;
                     break;
                 }
             }
-            [_dataSourceArray removeObject:tmpSM];
-            
-            if (!_dragStockModel) {
-                if (_dataSourceArray.count == row-1) {
-                    [_dataSourceArray addObject:_dragStockModel];
-                }else{
-                    [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
-                }
-                flag = YES;
-            }            
+            [_dataSourceArray removeObject:rsm];
+            Log(@"1 - remove1:%ld",_dataSourceArray.count);
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            flag = YES;
         }
     }
-    if (flag) {
+    if (idx > row) { //下->上
+        StockModel *sm = _dataSourceArray[row];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            
+            Log(@"2 - remove0:%ld",_dataSourceArray.count);
+            StockModel *rsm;
+            for (StockModel *sm in _dataSourceArray) {
+                if ([sm.code isEqual:_dragStockModel.code]) {
+                    rsm = sm;
+                    break;
+                }
+            }
+            [_dataSourceArray removeObject:rsm];
+            Log(@"2 - remove1:%ld",_dataSourceArray.count);
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            flag = YES;
+        }
+    }
+    if (flag) { //拖动换位了才做修改
         NSMutableArray *arr = [NSMutableArray new];
         for (StockModel *s in _dataSourceArray) {
             [arr addObject:s.code];
@@ -250,9 +237,12 @@ static NSString *kStockTimer = @"kStockTimer";
         _dragStockModel = nil;
         [_tableView deselectAll:nil];
     }
-    [self updateData];
+    
+    [self updateData]; //拖动完继续timer
+    
     return YES;
 }
+
 
 #pragma mark - NSUserNotificationCenterDelegate
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{

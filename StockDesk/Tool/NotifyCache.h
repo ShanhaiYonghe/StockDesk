@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)saveNotify:(NSDictionary *)dict;
 
 +(BOOL)delNotify:(NSDictionary *)notify;
++(BOOL)delNotifyByCode:(NSString *)code;
++(void)delAllNofify;
 
 +(NSArray *)getNotifyByCode:(NSString *)stockCode;
 

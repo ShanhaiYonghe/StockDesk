@@ -12,6 +12,7 @@
 #import "StockCache.h"
 
 #import "NotifyVC.h"
+#import "NotifyCache.h"
 
 @interface EditVC () <NSTableViewDelegate,NSTableViewDataSource>
 
@@ -229,29 +230,28 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation{
+    if (!_dragStockModel) {
+        return NO;
+    }
     NSInteger idx = [_dataSourceArray indexOfObject:_dragStockModel];//拖动的obj
     BOOL flag = NO;
-    if (idx > row) { //下面往上面移动
-        StockModel *sm = _dataSourceArray[row];//被替换的obj
-        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
-            [_dataSourceArray removeObject:_dragStockModel];
-            if (!_dragStockModel) {
-                [_dataSourceArray insertObject:_dragStockModel atIndex: row];
-                flag = YES;
-            }
-        }
-    }
     if (idx < row) {//上面往下面移动
         StockModel *sm = _dataSourceArray[row-1];//被替换的obj
         if ( ![sm.code isEqualToString:_dragStockModel.code]) {
             [_dataSourceArray removeObject:_dragStockModel];
-            if (!_dragStockModel) {
-                [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
-                flag = YES;
-            }
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row-1];
+            flag = YES;
         }
     }
-    if (flag) {
+    if (idx > row) { //下面往上面移动
+        StockModel *sm = _dataSourceArray[row];//被替换的obj
+        if ( ![sm.code isEqualToString:_dragStockModel.code]) {
+            [_dataSourceArray removeObject:_dragStockModel];
+            [_dataSourceArray insertObject:_dragStockModel atIndex: row];
+            flag = YES;
+        }
+    }
+    if (flag) {//如有移动才做修改
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:_dataSourceArray.count];
         for (StockModel *s in _dataSourceArray) {
             [arr addObject:s.code];
@@ -273,6 +273,7 @@
     NSButton *b = sender;
     StockModel *sm = [_dataSourceArray objectAtIndex:b.tag];
     [StockCache delStockByCode:sm.code];
+    [NotifyCache delNotifyByCode:sm.code];
     
     [self loadStockData];
     [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
@@ -319,6 +320,7 @@
         [StockCache saveStock:code];
     }else{
         [StockCache delStockByCode:code];
+        [NotifyCache delNotifyByCode:code];
     }
     
     [self loadStockData];

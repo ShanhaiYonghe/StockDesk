@@ -59,6 +59,26 @@
     return YES;
 }
 
++(BOOL)delNotifyByCode:(NSString *)code{
+    if (!code.length) {
+        return NO;
+    }
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:notifyKey]];
+    NSMutableArray *removeArr = [NSMutableArray new];
+    for (NSDictionary *dic in mutableArr) {
+        if ([dic[keyNotifyCode] isEqual:code]) {
+            [removeArr addObject:dic];
+        }
+    }
+    [mutableArr removeObjectsInArray:removeArr];
+    [[NSUserDefaults standardUserDefaults]setObject:mutableArr forKey:notifyKey];
+    return YES;
+}
+
++(void)delAllNofify{
+    [[NSUserDefaults standardUserDefaults] setObject:@[ ] forKey:notifyKey];
+}
+
 +(NSArray *)getNotifyByCode:(NSString *)stockCode{
     if (!stockCode.length) {
         return nil;

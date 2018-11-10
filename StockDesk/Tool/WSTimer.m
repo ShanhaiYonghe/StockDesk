@@ -55,7 +55,6 @@
     dispatch_source_t timer = [self.timerArr objectForKey:timerName];
     if (timer) {
         [self.timerArr removeObjectForKey:timerName];
-        
         dispatch_source_cancel(timer);
     }
 }
