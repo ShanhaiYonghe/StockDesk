@@ -30,7 +30,7 @@
     }
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:stockKey]];
     [arr addObjectsFromArray:codeArray];
-    [[NSUserDefaults standardUserDefaults] setObject:arr forKey:stockKey];
+    [[NSUserDefaults standardUserDefaults] setObject:arr?:@[] forKey:stockKey];
     return YES;
 }
 

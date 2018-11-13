@@ -32,7 +32,7 @@
 - (void)loadData{
     NSArray *arr = [NotifyCache getAllNotify];
     [_dataSourceArray removeAllObjects];
-    [_dataSourceArray addObjectsFromArray:arr];
+    [_dataSourceArray addObjectsFromArray:arr?:@[]];
     [_tableView reloadData];
 }
 
