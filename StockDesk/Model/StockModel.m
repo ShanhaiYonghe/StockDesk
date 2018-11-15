@@ -69,50 +69,51 @@
     
     NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",stockListStr];
 //    Log(@"url:%@",url);
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:5];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        NSString *gbkNSString = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
-        NSMutableArray *stockArr = [NSMutableArray arrayWithArray:[gbkNSString componentsSeparatedByString:@";"]];
-        if (stockArr.count) {
-            [stockArr removeLastObject];
-        }
-        NSMutableArray *mArr = [NSMutableArray new];
-        for (NSString *stock in stockArr) {
-            NSString *tmp;
-            NSRange range = [stock rangeOfString:@"\""];
-            tmp = [stock substringFromIndex:range.location];
-            tmp = [tmp stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-            NSArray *arr = [tmp componentsSeparatedByString:@","];
-            
-            NSRange range1 = [stock rangeOfString:@"str"];
-            NSRange range2 = NSMakeRange(range1.location+4,2);
-            NSString *type = [stock substringWithRange:range2];
-            
-            StockModel *sm = [[StockModel alloc]initWith:arr type:type];
-//            Log(@"getData1:");
-            NSString * code = [[StockCache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
-//            Log(@"getData2:%@",code);
-            sm.code = code;
-
-            NSString *codeDes = [code copy];
-            if ([codeDes rangeOfString:@"gb_"].location == 0){
-                codeDes = [codeDes substringFromIndex:3];
-                if ([codeDes containsString:@"$"]){
-                    codeDes = [codeDes substringFromIndex:1];
-                }
-            }else if([codeDes isEqualToString:@"hkHSI"]){
-                codeDes = @"800000";
+        if (data && error == nil) {
+            NSString *gbkNSString = [[NSString alloc]initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+            NSMutableArray *stockArr = [NSMutableArray arrayWithArray:[gbkNSString componentsSeparatedByString:@";"]];
+            if (stockArr.count) {
+                [stockArr removeLastObject];
             }
-            codeDes = [codeDes uppercaseString];
-            sm.codeDes = codeDes;
+            NSMutableArray *mArr = [NSMutableArray new];
+            for (NSString *stock in stockArr) {
+                NSString *tmp;
+                NSRange range = [stock rangeOfString:@"\""];
+                tmp = [stock substringFromIndex:range.location];
+                tmp = [tmp stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                NSArray *arr = [tmp componentsSeparatedByString:@","];
+                
+                NSRange range1 = [stock rangeOfString:@"str"];
+                NSRange range2 = NSMakeRange(range1.location+4,2);
+                NSString *type = [stock substringWithRange:range2];
+                
+                StockModel *sm = [[StockModel alloc]initWith:arr type:type];
+                //            Log(@"getData1:");
+                NSString * code = [[StockCache getStocks] objectAtIndex:[stockArr indexOfObject:stock]];
+                //            Log(@"getData2:%@",code);
+                sm.code = code;
+                
+                NSString *codeDes = [code copy];
+                if ([codeDes rangeOfString:@"gb_"].location == 0){
+                    codeDes = [codeDes substringFromIndex:3];
+                    if ([codeDes containsString:@"$"]){
+                        codeDes = [codeDes substringFromIndex:1];
+                    }
+                }else if([codeDes isEqualToString:@"hkHSI"]){
+                    codeDes = @"800000";
+                }
+                codeDes = [codeDes uppercaseString];
+                sm.codeDes = codeDes;
+                
+                [mArr addObject:sm];
+            }
             
-            [mArr addObject:sm];
-        }
-        
-        if (mArr.count) {
-            resultBlock(mArr);
+            if (mArr.count) {
+                resultBlock(mArr);
+            }
         }
     }];
     [task resume];
