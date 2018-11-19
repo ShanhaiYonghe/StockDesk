@@ -271,12 +271,16 @@
 
 - (void)del:(id)sender{
     NSButton *b = sender;
-    StockModel *sm = [_dataSourceArray objectAtIndex:b.tag];
-    [StockCache delStockByCode:sm.code];
-    [NotifyCache delNotifyByCode:sm.code];
-    
-    [self loadStockData];
-    [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
+    if (b.tag < _dataSourceArray.count) {
+        StockModel *sm = [_dataSourceArray objectAtIndex:b.tag];
+        [StockCache delStockByCode:sm.code];
+        [NotifyCache delNotifyByCode:sm.code];
+        
+        [self loadStockData];
+        [[NSNotificationCenter defaultCenter]postNotificationName:keyNotificationUpdateStock object:nil];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark 添加通知

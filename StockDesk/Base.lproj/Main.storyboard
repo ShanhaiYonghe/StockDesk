@@ -62,7 +62,7 @@
                                     <items>
                                         <menuItem title="Edit" keyEquivalent="n" id="Was-JA-tGl" userLabel="Add Stock">
                                             <connections>
-                                                <segue destination="CGx-MZ-kLa" kind="show" id="faR-uP-Gcq"/>
+                                                <segue destination="CGx-MZ-kLa" kind="show" identifier="openEditVC" id="faR-uP-Gcq"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -83,7 +83,7 @@
                         </items>
                     </menu>
                     <connections>
-                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Pzr-ks-Qf2"/>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="xIh-e5-8Zz"/>
                     </connections>
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
@@ -767,7 +767,7 @@
         <!--Tab View Controller-->
         <scene sceneID="Z7h-ZZ-c9a">
             <objects>
-                <tabViewController showSeguePresentationStyle="single" selectedTabViewItemIndex="0" id="CGx-MZ-kLa" sceneMemberID="viewController">
+                <tabViewController storyboardIdentifier="editVC" showSeguePresentationStyle="single" selectedTabViewItemIndex="0" id="CGx-MZ-kLa" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="66W-Wn-uak"/>
                         <tabViewItem id="xBA-un-kxg"/>
@@ -803,7 +803,7 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="160" height="40"/>
                         <connections>
-                            <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="a5P-Ph-qNd"/>
                         </connections>
                     </window>
                     <connections>
@@ -1312,6 +1312,6 @@
         <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YUL-eQ-Y8m"/>
+        <segue reference="faR-uP-Gcq"/>
     </inferredMetricsTieBreakers>
 </document>

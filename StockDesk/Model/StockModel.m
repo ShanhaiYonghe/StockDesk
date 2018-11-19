@@ -25,7 +25,7 @@
 
 - (instancetype)initWith:(NSArray *)dataArr type:(NSString*)type{
     if (dataArr.count<5) {
-        return nil;
+        return [StockModel new];
     }
     StockModel *sm = [StockModel new];
     if ([type isEqualToString:@"sh"]||[type isEqualToString:@"sz"]) {
@@ -65,6 +65,7 @@
     
     if (stockListStr.length<4) {
         resultBlock(nil);
+        return;
     }
     
     NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",stockListStr];
@@ -114,6 +115,8 @@
             if (mArr.count) {
                 resultBlock(mArr);
             }
+        }else{
+            resultBlock(nil);
         }
     }];
     [task resume];

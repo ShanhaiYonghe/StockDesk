@@ -8,8 +8,11 @@
 
 #import "wc.h"
 #import "Cache.h"
+#import "EditVC.h"
 
 @interface wc ()
+
+
 
 @end
 
@@ -26,7 +29,9 @@
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:kWindowFront];
         [[NSUserDefaults standardUserDefaults]setFloat:0.8 forKey:kWindowAlpha];
     }
-    [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];    
+    [[NSUserDefaults standardUserDefaults]setInteger:appLoadTimes+1 forKey:kAppLoadTimes];
+    
+   
 }
 
 - (void)windowDidLoad {
