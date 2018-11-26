@@ -56,25 +56,13 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ" userLabel="Edit">
+                            <menuItem title="Setting" id="dMs-cI-mzQ" userLabel="Edit">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="File" id="bib-Uj-vzu">
+                                <menu key="submenu" title="Setting" id="bib-Uj-vzu">
                                     <items>
                                         <menuItem title="Edit" keyEquivalent="n" id="Was-JA-tGl" userLabel="Add Stock">
                                             <connections>
                                                 <segue destination="CGx-MZ-kLa" kind="show" identifier="openEditVC" id="faR-uP-Gcq"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Help" id="wpr-3q-Mcd" userLabel="About">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
-                                    <items>
-                                        <menuItem title="About" keyEquivalent="?" id="FKE-Sm-Kum">
-                                            <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -91,6 +79,37 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="258" y="-352"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="uCn-Nl-O9a">
+            <objects>
+                <viewController title="About" id="y3i-Je-W2v" sceneMemberID="viewController">
+                    <view key="view" id="0Ew-q3-QD3">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uHT-ow-EJR">
+                                <rect key="frame" x="61" y="120" width="329" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="325" id="2Vm-Qs-Iwt"/>
+                                    <constraint firstAttribute="height" constant="60" id="6Nf-io-NaO"/>
+                                </constraints>
+                                <textFieldCell key="cell" selectable="YES" title="这是一个浮窗的小APP，对于一些不是专业的股民用户还是很有用处的。希望多多反馈,451406018@qq.com." id="jiT-Wk-6MT">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="uHT-ow-EJR" firstAttribute="centerY" secondItem="0Ew-q3-QD3" secondAttribute="centerY" id="6XE-EU-7U5"/>
+                            <constraint firstItem="uHT-ow-EJR" firstAttribute="centerX" secondItem="0Ew-q3-QD3" secondAttribute="centerX" id="SJs-hw-UsW"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="O0Y-4M-LQ9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="687" y="-454"/>
         </scene>
         <!--Edit Stock-->
         <scene sceneID="hVc-4A-fsi">
@@ -216,7 +235,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="创业板指" bezelStyle="regularSquare" imagePosition="left" inset="2" id="SMH-ka-yxc">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="hD6-hm-cw5"/>
@@ -227,7 +246,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="沪深300" bezelStyle="regularSquare" imagePosition="left" inset="2" id="AYm-hH-65P">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="hr4-ih-jGa"/>
@@ -238,7 +257,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="中小板指" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d4U-Eu-X8T">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="r5r-ds-rlX"/>
@@ -249,7 +268,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="上证50" bezelStyle="regularSquare" imagePosition="left" inset="2" id="UTl-aO-PDt">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="YTr-IZ-5Sc"/>
@@ -260,7 +279,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="恒生指数" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ydI-n8-qJl">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="iQd-YG-p1J"/>
@@ -271,7 +290,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="国企指数" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1JH-Ks-gAh">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="RVW-6g-2cg"/>
@@ -282,7 +301,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="恒指期货" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EU7-aE-NIC">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="SNJ-yK-KY2"/>
@@ -293,7 +312,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="道琼斯" bezelStyle="regularSquare" imagePosition="left" inset="2" id="nUJ-aM-jOB">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="bSj-eA-wlg"/>
@@ -304,7 +323,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="纳斯达克" bezelStyle="regularSquare" imagePosition="left" inset="2" id="FX6-FV-9MT">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="eQH-nD-rCc"/>
@@ -315,7 +334,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="标普500" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8je-fL-ISO">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addZhishuAction:" target="Xb1-YA-G79" id="CUg-LI-nOm"/>
@@ -711,7 +730,7 @@
                                             <constraint firstAttribute="height" constant="20" id="q55-ro-PKd"/>
                                         </constraints>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="以下价格时发送通知" id="18s-Ut-jZS">
-                                            <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                            <font key="font" usesAppearanceFont="YES"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -772,6 +791,7 @@
                         <tabViewItem id="66W-Wn-uak"/>
                         <tabViewItem id="xBA-un-kxg"/>
                         <tabViewItem id="FUK-Pz-2P8"/>
+                        <tabViewItem id="D2O-js-Nnp"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="pZ5-Fc-VeM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
@@ -786,6 +806,7 @@
                         <segue destination="Xb1-YA-G79" kind="relationship" relationship="tabItems" id="cbf-fI-AjY"/>
                         <segue destination="ESc-jt-pBK" kind="relationship" relationship="tabItems" id="TJb-xx-CUY"/>
                         <segue destination="AXz-2v-Mf8" kind="relationship" relationship="tabItems" id="pIW-UO-xSO"/>
+                        <segue destination="y3i-Je-W2v" kind="relationship" relationship="tabItems" id="Av6-RL-jLw"/>
                     </connections>
                 </tabViewController>
                 <customObject id="5WE-bd-60S" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1106,7 +1127,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-WA-jqy">
                                 <rect key="frame" x="198" y="216" width="84" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="浮窗透明度：" id="sfp-Lj-1rC">
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1115,7 +1136,7 @@
                                 <rect key="frame" x="198" y="139" width="182" height="18"/>
                                 <buttonCell key="cell" type="check" title="窗口是否始终显示在最前面" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qAg-Yr-jAm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="isFront:" target="ESc-jt-pBK" id="3mA-Qp-jeT"/>
