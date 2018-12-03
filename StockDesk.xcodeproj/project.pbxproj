@@ -36,6 +36,7 @@
 		01B0F6F92191793500576718 /* NotifyEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyEditVC.m; sourceTree = "<group>"; };
 		01B0F6FB21917DE700576718 /* NotifyCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyCache.h; sourceTree = "<group>"; };
 		01B0F6FC21917DE700576718 /* NotifyCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyCache.m; sourceTree = "<group>"; };
+		01BC5FDF21B214780046A16D /* StockDesk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockDesk.entitlements; sourceTree = "<group>"; };
 		01BFAEA3214F956C000DBB7F /* wc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wc.h; sourceTree = "<group>"; };
 		01BFAEA4214F956C000DBB7F /* wc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wc.m; sourceTree = "<group>"; };
 		01BFAEAC2150F418000DBB7F /* WSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTimer.h; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		01F49FE5214F7F0F007E942F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01F49FE7214F7F0F007E942F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01F49FE8214F7F0F007E942F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		01F49FEA214F7F0F007E942F /* StockDesk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockDesk.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +128,7 @@
 		01F49FDB214F7F0D007E942F /* StockDesk */ = {
 			isa = PBXGroup;
 			children = (
+				01BC5FDF21B214780046A16D /* StockDesk.entitlements */,
 				012FA341217049B500759CBC /* Tool */,
 				012FA340217049A000759CBC /* VC */,
 				012FA33F2170499700759CBC /* Model */,
@@ -137,7 +138,6 @@
 				01F49FE4214F7F0F007E942F /* Main.storyboard */,
 				01F49FE7214F7F0F007E942F /* Info.plist */,
 				01F49FE8214F7F0F007E942F /* main.m */,
-				01F49FEA214F7F0F007E942F /* StockDesk.entitlements */,
 				0182A25B217D6AE00056BB21 /* PrefixHeader.pch */,
 			);
 			path = StockDesk;
@@ -366,6 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockDesk/StockDesk.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -379,6 +380,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wings.StockDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -387,6 +389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockDesk/StockDesk.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9WTZ9C7PCQ;
@@ -399,6 +402,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wings.StockDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

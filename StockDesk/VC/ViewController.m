@@ -45,6 +45,7 @@ static NSString *kStockTimer = @"kStockTimer";
     _tableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     
     [self updateData];
+    
 
 }
 
