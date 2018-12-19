@@ -75,6 +75,7 @@
 #define ThemeDarkGrayColor [NSColor darkGrayColor]
 
 #define kWindowFront @"kWindowFront" //窗口最前显示
+#define kHideTitleBar @"kHideTitleBar" //是否隐藏titleBar
 #define kWindowAlpha @"kWindowAlpha" //窗口透明度
 #define kAppLoadTimes @"kAppLoadTimes" //app启动次数
 

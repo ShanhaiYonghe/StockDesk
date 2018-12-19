@@ -83,7 +83,7 @@
         <!--About-->
         <scene sceneID="uCn-Nl-O9a">
             <objects>
-                <viewController title="About" id="y3i-Je-W2v" sceneMemberID="viewController">
+                <viewController title="About" id="y3i-Je-W2v" customClass="AboutVC" sceneMemberID="viewController">
                     <view key="view" id="0Ew-q3-QD3">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -100,10 +100,26 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rtw-CY-t54">
+                                <rect key="frame" x="172.5" y="89" width="105" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="104" id="IPK-wc-Mi3"/>
+                                    <constraint firstAttribute="height" constant="22" id="SGi-Qp-nNB"/>
+                                </constraints>
+                                <buttonCell key="cell" type="roundTextured" title="github address" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HvH-os-M1i">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="open:" target="y3i-Je-W2v" id="s5G-Ys-3VF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="uHT-ow-EJR" firstAttribute="centerY" secondItem="0Ew-q3-QD3" secondAttribute="centerY" id="6XE-EU-7U5"/>
                             <constraint firstItem="uHT-ow-EJR" firstAttribute="centerX" secondItem="0Ew-q3-QD3" secondAttribute="centerX" id="SJs-hw-UsW"/>
+                            <constraint firstItem="rtw-CY-t54" firstAttribute="top" secondItem="uHT-ow-EJR" secondAttribute="bottom" constant="8" id="grN-S3-1Gw"/>
+                            <constraint firstItem="rtw-CY-t54" firstAttribute="centerX" secondItem="0Ew-q3-QD3" secondAttribute="centerX" id="gxL-0n-6z7"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -817,8 +833,8 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="wc" sceneMemberID="viewController">
-                    <window key="window" title="股票桌面" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" titleVisibility="hidden" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" title="StockDesk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="500" height="60"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -1114,7 +1130,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="370"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVV-X8-a6D">
+                            <slider hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVV-X8-a6D">
                                 <rect key="frame" x="198" y="176" width="204" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="kAv-x3-GuE"/>
@@ -1124,7 +1140,7 @@
                                     <action selector="sliderAction:" target="ESc-jt-pBK" id="qi8-PE-vGK"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-WA-jqy">
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o5a-WA-jqy">
                                 <rect key="frame" x="198" y="216" width="84" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="浮窗透明度：" id="sfp-Lj-1rC">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -1142,17 +1158,35 @@
                                     <action selector="isFront:" target="ESc-jt-pBK" id="3mA-Qp-jeT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EH6-Xf-0wW">
+                                <rect key="frame" x="198" y="191" width="89" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="EL6-Z4-4pu"/>
+                                    <constraint firstAttribute="width" constant="85" id="e0I-gD-2Rx"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="隐藏标题栏" bezelStyle="regularSquare" imagePosition="left" inset="2" id="JyG-mM-vWN">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="hideTitleBar:" target="ESc-jt-pBK" id="R65-VQ-vJJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="eLB-DP-Jwx" firstAttribute="leading" secondItem="EVV-X8-a6D" secondAttribute="leading" id="0D0-wl-F7e"/>
+                            <constraint firstItem="EVV-X8-a6D" firstAttribute="top" secondItem="EH6-Xf-0wW" secondAttribute="bottom" id="E55-VL-MVm"/>
                             <constraint firstItem="EVV-X8-a6D" firstAttribute="centerY" secondItem="KmC-EZ-Cep" secondAttribute="centerY" id="FY4-Fj-gKW"/>
                             <constraint firstItem="o5a-WA-jqy" firstAttribute="leading" secondItem="EVV-X8-a6D" secondAttribute="leading" id="Xn7-c9-bix"/>
                             <constraint firstItem="EVV-X8-a6D" firstAttribute="top" secondItem="o5a-WA-jqy" secondAttribute="bottom" constant="23" id="Y54-D9-CtF"/>
+                            <constraint firstItem="EH6-Xf-0wW" firstAttribute="leading" secondItem="eLB-DP-Jwx" secondAttribute="leading" id="YYs-Z9-tqU"/>
                             <constraint firstItem="eLB-DP-Jwx" firstAttribute="top" secondItem="EVV-X8-a6D" secondAttribute="bottom" constant="23" id="mTG-VO-3CS"/>
                             <constraint firstItem="EVV-X8-a6D" firstAttribute="centerX" secondItem="KmC-EZ-Cep" secondAttribute="centerX" id="rks-aj-3KA"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="isFrontBtn" destination="eLB-DP-Jwx" id="XNy-Sv-DXq"/>
+                        <outlet property="isHideBtn" destination="EH6-Xf-0wW" id="OtB-00-uWm"/>
                         <outlet property="slider" destination="EVV-X8-a6D" id="Occ-Mw-8db"/>
                     </connections>
                 </viewController>
@@ -1333,6 +1367,6 @@
         <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="faR-uP-Gcq"/>
+        <segue reference="YUL-eQ-Y8m"/>
     </inferredMetricsTieBreakers>
 </document>

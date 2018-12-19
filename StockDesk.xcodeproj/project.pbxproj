@@ -10,12 +10,15 @@
 		01366DA1217DD0D000B1FB51 /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01366DA0217DD0D000B1FB51 /* SetVC.m */; };
 		0137D1C621902A180098733E /* StockCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0137D1C521902A180098733E /* StockCache.m */; };
 		01395AFB218B086200F95913 /* NotifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01395AFA218B086200F95913 /* NotifyVC.m */; };
+		0142E8A621CA9AF40018E736 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0142E8A521CA9AF40018E736 /* Reachability.m */; };
+		0142E8A921CA9B0B0018E736 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0142E8A821CA9B0B0018E736 /* SystemConfiguration.framework */; };
 		01B0F6FA2191793500576718 /* NotifyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B0F6F92191793500576718 /* NotifyEditVC.m */; };
 		01B0F6FD21917DE700576718 /* NotifyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B0F6FC21917DE700576718 /* NotifyCache.m */; };
 		01BFAEA5214F956C000DBB7F /* wc.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEA4214F956C000DBB7F /* wc.m */; };
 		01BFAEAE2150F418000DBB7F /* WSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEAD2150F418000DBB7F /* WSTimer.m */; };
 		01BFAEB42151EEBB000DBB7F /* StockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BFAEB32151EEBB000DBB7F /* StockModel.m */; };
 		01C305A2215383EB0037A01E /* EditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C305A1215383EB0037A01E /* EditVC.m */; };
+		01E6CA9F21CA8B270071B7E7 /* AboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E6CA9E21CA8B270071B7E7 /* AboutVC.m */; };
 		01F49FDE214F7F0D007E942F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F49FDD214F7F0D007E942F /* AppDelegate.m */; };
 		01F49FE1214F7F0D007E942F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F49FE0214F7F0D007E942F /* ViewController.m */; };
 		01F49FE3214F7F0F007E942F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01F49FE2214F7F0F007E942F /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 		01395AF9218B086200F95913 /* NotifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyVC.h; sourceTree = "<group>"; };
 		01395AFA218B086200F95913 /* NotifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyVC.m; sourceTree = "<group>"; };
 		01395AFC218FF7AD00F95913 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		0142E8A421CA9AF40018E736 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		0142E8A521CA9AF40018E736 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		0142E8A821CA9B0B0018E736 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0182A25B217D6AE00056BB21 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		01B0F6F82191793500576718 /* NotifyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyEditVC.h; sourceTree = "<group>"; };
 		01B0F6F92191793500576718 /* NotifyEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyEditVC.m; sourceTree = "<group>"; };
@@ -45,6 +51,8 @@
 		01BFAEB32151EEBB000DBB7F /* StockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockModel.m; sourceTree = "<group>"; };
 		01C305A0215383EB0037A01E /* EditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditVC.h; sourceTree = "<group>"; };
 		01C305A1215383EB0037A01E /* EditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditVC.m; sourceTree = "<group>"; };
+		01E6CA9D21CA8B270071B7E7 /* AboutVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutVC.h; sourceTree = "<group>"; };
+		01E6CA9E21CA8B270071B7E7 /* AboutVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutVC.m; sourceTree = "<group>"; };
 		01F49FD9214F7F0D007E942F /* StockDesk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockDesk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F49FDC214F7F0D007E942F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		01F49FDD214F7F0D007E942F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0142E8A921CA9B0B0018E736 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +100,8 @@
 				01395AFA218B086200F95913 /* NotifyVC.m */,
 				01B0F6F82191793500576718 /* NotifyEditVC.h */,
 				01B0F6F92191793500576718 /* NotifyEditVC.m */,
+				01E6CA9D21CA8B270071B7E7 /* AboutVC.h */,
+				01E6CA9E21CA8B270071B7E7 /* AboutVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -98,6 +109,8 @@
 		012FA341217049B500759CBC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				0142E8A421CA9AF40018E736 /* Reachability.h */,
+				0142E8A521CA9AF40018E736 /* Reachability.m */,
 				01395AFC218FF7AD00F95913 /* Common.h */,
 				01BFAEAC2150F418000DBB7F /* WSTimer.h */,
 				01BFAEAD2150F418000DBB7F /* WSTimer.m */,
@@ -109,11 +122,20 @@
 			path = Tool;
 			sourceTree = "<group>";
 		};
+		0142E8A721CA9B0A0018E736 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0142E8A821CA9B0B0018E736 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		01F49FD0214F7F0D007E942F = {
 			isa = PBXGroup;
 			children = (
 				01F49FDB214F7F0D007E942F /* StockDesk */,
 				01F49FDA214F7F0D007E942F /* Products */,
+				0142E8A721CA9B0A0018E736 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F49FE1214F7F0D007E942F /* ViewController.m in Sources */,
+				01E6CA9F21CA8B270071B7E7 /* AboutVC.m in Sources */,
 				01BFAEA5214F956C000DBB7F /* wc.m in Sources */,
 				01B0F6FD21917DE700576718 /* NotifyCache.m in Sources */,
 				01366DA1217DD0D000B1FB51 /* SetVC.m in Sources */,
@@ -232,6 +255,7 @@
 				01F49FDE214F7F0D007E942F /* AppDelegate.m in Sources */,
 				0137D1C621902A180098733E /* StockCache.m in Sources */,
 				01BFAEB42151EEBB000DBB7F /* StockModel.m in Sources */,
+				0142E8A621CA9AF40018E736 /* Reachability.m in Sources */,
 				01BFAEAE2150F418000DBB7F /* WSTimer.m in Sources */,
 				01B0F6FA2191793500576718 /* NotifyEditVC.m in Sources */,
 				01395AFB218B086200F95913 /* NotifyVC.m in Sources */,

@@ -10,6 +10,8 @@
 
 @interface SetVC ()
 @property (weak) IBOutlet NSSlider *slider;
+@property (weak) IBOutlet NSButton *isFrontBtn;
+@property (weak) IBOutlet NSButton *isHideBtn;
 
 @end
 
@@ -19,7 +21,14 @@
     [super viewDidLoad];
     float v = [[NSUserDefaults standardUserDefaults] floatForKey:kWindowAlpha];
     Log(@"alpha:%f",v);
-    _slider.stringValue = SF(@"%f",v*100);    
+    _slider.stringValue = SF(@"%f",v*100);
+    
+    BOOL isFront = [[NSUserDefaults standardUserDefaults]boolForKey:kWindowFront];
+    _isFrontBtn.state = isFront;
+    
+    BOOL isHide = [[NSUserDefaults standardUserDefaults]boolForKey:kHideTitleBar];
+    _isHideBtn.state = isHide;
+    
 }
 
 - (IBAction)sliderAction:(id)sender {
@@ -28,6 +37,15 @@
     [[NSUserDefaults standardUserDefaults]setFloat:v forKey: kWindowAlpha];
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"updateBgAlpha" object:nil];
+}
+- (IBAction)hideTitleBar:(id)sender {
+        NSButton *btn = sender;
+        if (btn.state == 1) {
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:kHideTitleBar];
+        }else{
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:kHideTitleBar];
+        }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"hideBar" object:nil];
 }
 
 - (IBAction)isFront:(id)sender {
@@ -40,8 +58,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:kWindowFront];
         [w setLevel:NSNormalWindowLevel];
     }
-    
-    
 }
+
 
 @end

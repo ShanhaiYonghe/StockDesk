@@ -39,6 +39,8 @@ static NSString *kStockTimer = @"kStockTimer";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateData) name:keyNotificationUpdateStock object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateBgAlpha) name:@"updateBgAlpha" object:nil];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hideBar) name:@"hideBar" object:nil];
+    
     _dataSourceArray = [NSMutableArray new];
     
     [_tableView registerForDraggedTypes:@[NSStringPboardType]];
@@ -46,7 +48,16 @@ static NSString *kStockTimer = @"kStockTimer";
     
     [self updateData];
     
+}
 
+- (void)hideBar{
+        BOOL isHide = [[NSUserDefaults standardUserDefaults]boolForKey:kHideTitleBar];
+        self.view.window.titlebarAppearsTransparent = isHide;
+        if (isHide) {
+                self.view.window.styleMask = self.view.window.styleMask | NSWindowStyleMaskFullSizeContentView;
+        }else{
+                self.view.window.styleMask = NSWindowStyleMaskResizable|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskTitled;
+        }
 }
 
 - (void)updateBgAlpha{
