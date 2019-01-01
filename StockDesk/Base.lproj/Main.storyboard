@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -101,7 +100,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rtw-CY-t54">
-                                <rect key="frame" x="172.5" y="89" width="105" height="23"/>
+                                <rect key="frame" x="173" y="89" width="104" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="104" id="IPK-wc-Mi3"/>
                                     <constraint firstAttribute="height" constant="22" id="SGi-Qp-nNB"/>
@@ -141,7 +140,7 @@
                                     <constraint firstAttribute="width" constant="130" id="5tq-ux-MoS"/>
                                     <constraint firstAttribute="height" constant="22" id="Nnn-hE-XID"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="请输入股票代码" drawsBackground="YES" id="ya3-sA-qKt">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="请输入StockDesk代码" drawsBackground="YES" id="ya3-sA-qKt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -365,7 +364,7 @@
                                 <rect key="frame" x="20" y="20" width="560" height="190"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="3zv-dk-q8Y">
                                     <rect key="frame" x="1" y="1" width="558" height="188"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="ftB-ta-zZn">
                                             <rect key="frame" x="0.0" y="0.0" width="594" height="188"/>
@@ -851,10 +850,10 @@
             </objects>
             <point key="canvasLocation" x="-220" y="-333"/>
         </scene>
-        <!--股票桌面-->
+        <!--StockDesk桌面-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="股票桌面" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="StockDesk桌面" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" focusRingType="none" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="40"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -863,7 +862,7 @@
                                 <rect key="frame" x="10" y="10" width="470" height="20"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rIn-1b-vyC">
                                     <rect key="frame" x="0.0" y="0.0" width="470" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView canDrawConcurrently="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="viF-ml-Hab">
                                             <rect key="frame" x="0.0" y="0.0" width="470" height="20"/>
@@ -1206,7 +1205,7 @@
                                 <rect key="frame" x="20" y="20" width="560" height="330"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="0Zl-vX-cGF">
                                     <rect key="frame" x="1" y="1" width="558" height="328"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="5ph-NJ-h9e">
                                             <rect key="frame" x="0.0" y="0.0" width="558" height="328"/>

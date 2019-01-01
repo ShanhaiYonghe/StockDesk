@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0110B1B721DB665B001AE5CB /* StockDesk copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "StockDesk copy-Info.plist"; path = "/Users/Wings/iOS/StockDesk/StockDesk copy-Info.plist"; sourceTree = "<absolute>"; };
 		01366D9F217DD0D000B1FB51 /* SetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		01366DA0217DD0D000B1FB51 /* SetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		0137D1C421902A180098733E /* StockCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockCache.h; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 				01F49FDB214F7F0D007E942F /* StockDesk */,
 				01F49FDA214F7F0D007E942F /* Products */,
 				0142E8A721CA9B0A0018E736 /* Frameworks */,
+				0110B1B721DB665B001AE5CB /* StockDesk copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

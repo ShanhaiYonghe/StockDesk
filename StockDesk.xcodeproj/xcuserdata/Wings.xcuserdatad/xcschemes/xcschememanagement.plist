@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>StockDesk copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>StockDesk.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0110B19E21DB665B001AE5CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>01F49FD8214F7F0D007E942F</key>
 		<dict>
 			<key>primary</key>
