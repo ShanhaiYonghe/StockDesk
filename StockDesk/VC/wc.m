@@ -20,6 +20,7 @@
 
 - (void)windowWillLoad{
     [super windowWillLoad];
+	
     
 //    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:kAppLoadTimes]; //测试用
 //    [[NSUserDefaults standardUserDefaults]setObject:@[] forKey:notifyKey]; //测试用
@@ -62,7 +63,10 @@
                 self.window.styleMask = NSWindowStyleMaskResizable|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskTitled;
         }
 
-    self.window.backgroundColor = NSColorFromHEX(0x000000, 0);
+//    self.window.backgroundColor = NSColorFromHEX(0x000000, 0);
+	
+	[self.window setOpaque:NO];
+	[self.window setBackgroundColor:[NSColor clearColor]];
 }
 
 @end

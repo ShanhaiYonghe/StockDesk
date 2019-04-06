@@ -18,6 +18,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    NSInteger appLoadTimes = [[NSUserDefaults standardUserDefaults]integerForKey:kAppLoadTimes];
 //    [self addStatusBar];
+
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -50,5 +51,14 @@
     //    [sg performSegueWithIdentifier:@"openEditVC" sender:sender];
 }
 
-
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag{
+	if (flag) {
+		return NO;
+	}else{
+		NSWindowController *wc = [[NSStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateControllerWithIdentifier:@"wc"];
+		
+		[wc.window makeKeyAndOrderFront:self];
+	}
+	return YES;
+}
 @end

@@ -32,6 +32,8 @@ static NSString *kStockTimer = @"kStockTimer";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+_addNewStockBtn.hidden = YES;
     
     float v = [[NSUserDefaults standardUserDefaults]floatForKey:kWindowAlpha];
     self.view.layer.backgroundColor = NSColorFromHEX(0xDDDDDD, v).CGColor;
@@ -74,6 +76,8 @@ static NSString *kStockTimer = @"kStockTimer";
             if (dataList.count) {
                 [weakSelf.dataSourceArray removeAllObjects];
                 [weakSelf.dataSourceArray addObjectsFromArray:dataList];
+		    
+		
                 //处理通知，当某code的price大于或者小于等于 设置的price后，发出通知，并且移除通知，通知设置添加在NSArray中
                 for (StockModel *sm in dataList) {
                     NSArray *arr = [NotifyCache getNotifyByCode:sm.code];
@@ -95,6 +99,7 @@ static NSString *kStockTimer = @"kStockTimer";
                 [[WSTimer sharedInstance] cancelTimer:kStockTimer];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
+		weakSelf.addNewStockBtn.hidden = weakSelf.dataSourceArray.count>0?YES:NO;
                 [weakSelf.tableView reloadData];
             });
         }];
@@ -104,7 +109,6 @@ static NSString *kStockTimer = @"kStockTimer";
 
 #pragma mark - tableView
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
-    _addNewStockBtn.hidden = _dataSourceArray.count>0?YES:NO;
     return _dataSourceArray.count;
 }
 
